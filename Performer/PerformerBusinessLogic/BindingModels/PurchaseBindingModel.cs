@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace PerformerBusinessLogic.BindingModels
+{
+    public class PurchaseBindingModel
+    {
+        public int? Id { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public decimal Price { get; set; }
+    }
+}

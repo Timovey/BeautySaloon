@@ -19,5 +19,9 @@ namespace PerformerBusinessLogic.ViewModels
         public string Mail { get; set; }
         [DisplayName("Телефон")]
         public string Tel { get; set; }
+
+        public Dictionary<int, (string, int)> ClientProcedures { get; set; }
+        public Dictionary<int, (string, int)> ClientPurchases { get; set; }
+        public Dictionary<int, (string, int)> ClientVisits { get; set; }
     }
 }

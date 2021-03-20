@@ -10,5 +10,6 @@ namespace PerformerBusinessLogic.BindingModels
 
         public DateTime Date { get; set; }
 
+        public Dictionary<int, (string, int)> VisitProcedures { get; set; }
     }
 }

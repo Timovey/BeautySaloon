@@ -6,7 +6,7 @@ namespace PerformerListImplements.Models
 {
     public class Client
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         public string ClientName { get; set; }
 
@@ -19,5 +19,11 @@ namespace PerformerListImplements.Models
         public string Login { get; set; }
         // Может и private
         public string Password { get; set; }
+
+        public Dictionary<int, int> ClientProcedures { get; set; }
+
+        public Dictionary<int, int> ClientPurchases { get; set; }
+
+        public Dictionary<int, int> ClientVisits { get; set; }
     }
 }

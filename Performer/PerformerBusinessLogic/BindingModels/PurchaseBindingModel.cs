@@ -11,5 +11,7 @@ namespace PerformerBusinessLogic.BindingModels
         public DateTime Date { get; set; }
 
         public decimal Price { get; set; }
+
+        public Dictionary<int, (string, int)> PurchaseProcedures { get; set; }
     }
 }

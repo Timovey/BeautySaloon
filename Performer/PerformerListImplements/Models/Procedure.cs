@@ -6,7 +6,7 @@ namespace PerformerListImplements.Models
 {
     public class Procedure
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         public string ProcedureName { get; set; }
 

@@ -13,31 +13,39 @@ namespace PerformerView
     /// </summary>
     public partial class App : Application
     {
-     
-        //[STAThread]
-        //static void Main()
-        //{
-        //    var container = BuildUnityContainer();
-        //    //Application.EnableVisualStyles();
-        //    //Application.SetCompatibleTextRenderingDefault(false);
-        //    Application.Run(container.Resolve<MainWindow>());
-        //}
-        //private static IUnityContainer BuildUnityContainer()
-        //{
-        //    var currentContainer = new UnityContainer();
-        //    currentContainer.RegisterType<IComponentStorage, ComponentStorage>(new
-        //   HierarchicalLifetimeManager());
-        //    currentContainer.RegisterType<IOrderStorage, OrderStorage>(new
-        //   HierarchicalLifetimeManager());
-        //    currentContainer.RegisterType<IProductStorage, ProductStorage>(new
-        //   HierarchicalLifetimeManager());
-        //    currentContainer.RegisterType<ComponentLogic>(new
-        //   HierarchicalLifetimeManager());
-        //    currentContainer.RegisterType<OrderLogic>(new HierarchicalLifetimeManager());
-        //    currentContainer.RegisterType<ProductLogic>(new
-        //   HierarchicalLifetimeManager());
-        //    return currentContainer;
-        //}
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            IUnityContainer currentContainer = BuildUnityContainer();
+
+            var mainWindow = currentContainer.Resolve<MainWindow>();
+            var window = new MainWindow { DataContext = mainWindow };
+            window.Show();
+        }
+
+
+        private static IUnityContainer BuildUnityContainer()
+        {
+            var currentContainer = new UnityContainer();
+            currentContainer.RegisterType<IVisitStorage, VisitStorage>(new 
+                HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IClientStorage, ClientStorage>(new
+           HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IProcedureStorage, ProcedureStorage>(new
+           HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IPurchaseStorage, PurchaseStorage>(new
+HierarchicalLifetimeManager());
+            currentContainer.RegisterType<VisitLogic>(new
+           HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ClientLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ProcedureLogic>(new
+           HierarchicalLifetimeManager());
+            currentContainer.RegisterType<PurchaseLogic>(new
+           HierarchicalLifetimeManager());
+            return currentContainer;
+        }
 
     }
 

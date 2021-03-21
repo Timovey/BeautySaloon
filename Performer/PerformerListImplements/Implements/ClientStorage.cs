@@ -197,21 +197,37 @@ namespace PerformerListImplements.Implements
             }
 
 
-            //Dictionary<int, (string, int)> clientPurchases = new
-            //Dictionary<int, (string, int)>();
-            //foreach (var pc in client.ClientPurchases)
-            //{
-            //    string procedureName = string.Empty;
-            //    foreach (var purchase in source.Purchases)
-            //    {
-            //        if (pc.Key == purchase.Id)
-            //        {
-            //            procedureName = purchase.;
-            //            break;
-            //        }
-            //    }
-            //    clientProcedures.Add(cp.Key, (procedureName, cp.Value));
-            //}
+            Dictionary<int, (DateTime, int)> clientPurchases = new
+            Dictionary<int, (DateTime, int)>();
+            foreach (var cp in client.ClientPurchases)
+            {
+                DateTime purchaseDate = DateTime.MinValue;
+                foreach (var purchase in source.Purchases)
+                {
+                    if (cp.Key == purchase.Id)
+                    {
+                        purchaseDate = purchase.Date;
+                        break;
+                    }
+                }
+                clientPurchases.Add(cp.Key, (purchaseDate, cp.Value));
+            }
+
+            Dictionary<int, (DateTime, int)> clientVisits = new
+            Dictionary<int, (DateTime, int)>();
+            foreach (var cv in client.ClientVisits)
+            {
+                DateTime visitDate = DateTime.MinValue;
+                foreach (var visit in source.Visits)
+                {
+                    if (cv.Key == visit.Id)
+                    {
+                        visitDate = visit.Date;
+                        break;
+                    }
+                }
+                clientPurchases.Add(cv.Key, (visitDate, cv.Value));
+            }
 
             return new ClientViewModel
             {
@@ -219,7 +235,10 @@ namespace PerformerListImplements.Implements
                ClientName = client.ClientName,
                ClientSurame = client.ClientSurame,
                Mail = client.Mail,
-               Tel = client.Tel
+               Tel = client.Tel,
+               ClientProcedures = clientProcedures,
+               ClientPurchases = clientPurchases,
+               ClientVisits = clientVisits
             };
         }
     }

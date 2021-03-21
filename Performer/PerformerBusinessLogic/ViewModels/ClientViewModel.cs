@@ -21,7 +21,7 @@ namespace PerformerBusinessLogic.ViewModels
         public string Tel { get; set; }
 
         public Dictionary<int, (string, int)> ClientProcedures { get; set; }
-        public Dictionary<int, (string, int)> ClientPurchases { get; set; }
-        public Dictionary<int, (string, int)> ClientVisits { get; set; }
+        public Dictionary<int, (DateTime, int)> ClientPurchases { get; set; }
+        public Dictionary<int, (DateTime, int)> ClientVisits { get; set; }
     }
 }

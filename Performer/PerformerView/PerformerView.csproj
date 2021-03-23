@@ -64,6 +64,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MassageHelp\MassageButton.cs" />
+    <Compile Include="MassageHelp\MassageIcon.cs" />
+    <Compile Include="WindowProcedure.xaml.cs">
+      <DependentUpon>WindowProcedure.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowProcedures.xaml.cs">
+      <DependentUpon>WindowProcedures.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowRegistration.xaml.cs">
       <DependentUpon>WindowRegistration.xaml</DependentUpon>
     </Compile>
@@ -79,6 +87,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="WindowProcedure.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowProcedures.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowRegistration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

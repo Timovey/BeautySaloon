@@ -20,9 +20,9 @@ namespace PerformerView
 
             IUnityContainer currentContainer = BuildUnityContainer();
 
-            var mainWindow = currentContainer.Resolve<MainWindow>();
-            var window = new MainWindow { DataContext = mainWindow };
-            window.Show();
+            var mainWindow = currentContainer.Resolve<WindowProcedures>();
+            //var window = new WindowProcedures { DataContext = mainWindow };
+            mainWindow.Show();
         }
 
 

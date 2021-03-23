@@ -8,7 +8,7 @@
     <Grid>
         <Menu HorizontalAlignment="Left" MinHeight="100" Margin="25,25,25,0" MinWidth="400" VerticalAlignment="Top" Grid.ColumnSpan="2">
 
-            <MenuItem MinHeight="100" MinWidth="100">
+            <MenuItem MinHeight="100" MinWidth="100" Background="AliceBlue">
                
             </MenuItem>
         </Menu>

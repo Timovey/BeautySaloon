@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity;
 
 namespace PerformerView
 {
@@ -20,6 +21,9 @@ namespace PerformerView
     /// </summary>
     public partial class MainWindow : Window
     {
+        [Dependency]
+        public new IUnityContainer Container { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();

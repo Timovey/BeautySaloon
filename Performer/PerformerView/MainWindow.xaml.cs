@@ -22,12 +22,33 @@ namespace PerformerView
     public partial class MainWindow : Window
     {
         [Dependency]
-        public new IUnityContainer Container { get; set; }
+        public IUnityContainer Container { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        private void MenuItemProcedure_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<WindowProcedures>();
+            if (window.ShowDialog().Value == true)
+            {
+                LoadData();
+            }
+        }
+
+        private void MenuItemVisit_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<WindowVisits>();
+            if (window.ShowDialog().Value == true)
+            {
+                LoadData();
+            }
+        }
+        private void LoadData()
+        {
+
+        }
     }
 }

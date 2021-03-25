@@ -17,18 +17,19 @@ using PerformerBusinessLogic.BindingModels;
 using Unity;
 using System.Data;
 
+
 namespace PerformerView
 {
     /// <summary>
-    /// Логика взаимодействия для WindowProcedures.xaml
+    /// Логика взаимодействия для WindowVisits.xaml
     /// </summary>
-    public partial class WindowProcedures : Window
+    public partial class WindowVisits : Window
     {
         [Dependency]
         public IUnityContainer Container { get; set; }
-        private readonly ProcedureLogic logic;
+        private readonly VisitLogic logic;
 
-        public WindowProcedures(ProcedureLogic logic)
+        public WindowVisits(VisitLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
@@ -36,7 +37,7 @@ namespace PerformerView
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            var window = Container.Resolve<WindowProcedure>();
+            var window = Container.Resolve<WindowVisit>();
             if (window.ShowDialog().Value == true)
             {
                 LoadData();
@@ -45,34 +46,34 @@ namespace PerformerView
 
         private void buttonUpd_Click(object sender, RoutedEventArgs e)
         {
-            if(dataGridProcedures.SelectedCells.Count != 0)
+            if (dataGridVisits.SelectedCells.Count != 0)
             {
-                var window = Container.Resolve<WindowProcedure>();
-                var cellInfo = dataGridProcedures.SelectedCells[0];
-                ProcedureViewModel content = (ProcedureViewModel)(cellInfo.Item);
+                var window = Container.Resolve<WindowVisit>();
+                var cellInfo = dataGridVisits.SelectedCells[0];
+                VisitViewModel content = (VisitViewModel)(cellInfo.Item);
                 window.Id = Convert.ToInt32(content.Id);
                 if (window.ShowDialog().Value == true)
                 {
                     LoadData();
                 }
-               
+
             }
         }
 
         private void buttonDel_Click(object sender, RoutedEventArgs e)
         {
-            if (dataGridProcedures.SelectedCells.Count != 0)
+            if (dataGridVisits.SelectedCells.Count != 0)
             {
                 var result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo,
                MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-                    var cellInfo = dataGridProcedures.SelectedCells[0];
-                    ProcedureViewModel content = (ProcedureViewModel)(cellInfo.Item);
+                    var cellInfo = dataGridVisits.SelectedCells[0];
+                    VisitViewModel content = (VisitViewModel)(cellInfo.Item);
                     int id = Convert.ToInt32(content.Id);
                     try
                     {
-                        logic.Delete(new ProcedureBindingModel { Id = id });
+                        logic.Delete(new VisitBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {
@@ -82,33 +83,30 @@ namespace PerformerView
                     LoadData();
                 }
             }
-   
         }
 
         private void buttonRef_Click(object sender, RoutedEventArgs e)
         {
             LoadData();
         }
-
-        private void WindowProcedures_Loaded(object sender, RoutedEventArgs e)
+        
+        private void WindowVisits_Loaded(object sender, RoutedEventArgs e)
         {
-            ProcedureBindingModel procedure = new ProcedureBindingModel()
+            VisitBindingModel visit = new VisitBindingModel()
             {
-                Duration = 50,
-                ProcedureName = "ads",
-                Price = 500
+                Date = DateTime.Now,
             };
-            logic.CreateOrUpdate(procedure);
+            logic.CreateOrUpdate(visit);
             LoadData();
         }
         private void LoadData()
         {
-           
+
             var list = logic.Read(null);
             if (list != null)
             {
-                dataGridProcedures.ItemsSource = list;
-                dataGridProcedures.Columns[0].Visibility = Visibility.Hidden;
+                dataGridVisits.ItemsSource = list;
+                dataGridVisits.Columns[0].Visibility = Visibility.Hidden;
             }
         }
     }

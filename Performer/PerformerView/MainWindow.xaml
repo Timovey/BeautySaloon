@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:PerformerView"
         Title="Главная" Height="450" Width="800">
     <Grid>
-        <Menu HorizontalAlignment="Left" MinHeight="100" Margin="25,25,25,0" MinWidth="400" VerticalAlignment="Top" Grid.ColumnSpan="2">
-
-            <MenuItem MinHeight="100" MinWidth="100" Background="AliceBlue">
-               
-            </MenuItem>
+        <Menu HorizontalAlignment="Left" MinHeight="100" Margin="25,25,25,0" MinWidth="400" VerticalAlignment="Top">
+            <Image Source="Image/Logo.png" Stretch="UniformToFill" MaxHeight="100"></Image>
+            <MenuItem x:Name="MenuItemProcedure" Header="Процедура" Click="MenuItemProcedure_Click"></MenuItem>
+            
+            <MenuItem x:Name="MenuItemVisit" Header="Посещение" Click="MenuItemVisit_Click"></MenuItem>
         </Menu>
 
     </Grid>

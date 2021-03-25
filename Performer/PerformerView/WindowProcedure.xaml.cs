@@ -67,13 +67,13 @@ namespace PerformerView
             }
             if (string.IsNullOrEmpty(textBoxDuration.Text))
             {
-                MessageBox.Show("Заполните строку продолжительности", "Ошибка", MessageBoxButton.OK,
+                MessageBox.Show("Введите продолжительность", "Ошибка", MessageBoxButton.OK,
                MessageBoxImage.Error);
                 return;
             }
             if (string.IsNullOrEmpty(textBoxPrice.Text))
             {
-                MessageBox.Show("Заполните строку длительности", "Ошибка", MessageBoxButton.OK,
+                MessageBox.Show("Введите цену", "Ошибка", MessageBoxButton.OK,
                MessageBoxImage.Error);
                 return;
             }
@@ -104,7 +104,5 @@ namespace PerformerView
             this.DialogResult = false;
             Close();
         }
-
-  
     }
 }

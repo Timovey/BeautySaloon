@@ -14,7 +14,9 @@
             <Button x:Name="buttonRef" Content="Обновить" HorizontalAlignment="Left" Height="33" Margin="0,15,100,15" VerticalAlignment="Top" Width="147" Click="buttonRef_Click"/>
 
         </StackPanel>
-        <DataGrid x:Name="dataGridProcedures" HorizontalAlignment="Left" MinHeight="250" Margin="50,50,0,0" VerticalAlignment="Top" MinWidth="300" SelectionMode="Single"
-                  IsReadOnly="True"/>
-        </Grid>
+        <DataGrid x:Name="dataGridProcedures" HorizontalAlignment="Left" MinHeight="250" Margin="50,50,0,0" VerticalAlignment="Top" SelectionMode="Single"
+                  IsReadOnly="True" ColumnWidth="auto" RowHeaderWidth="0" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" 
+                  CanUserResizeColumns="False" CanUserResizeRows="False">
+        </DataGrid>
+    </Grid>
 </Window>

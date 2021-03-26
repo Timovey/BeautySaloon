@@ -30,14 +30,7 @@ namespace PerformerView
             set { ComboBoxProcedures.SelectedValue = value; }
         }
         public string ProcedureName { get { return ComboBoxProcedures.Text; } }
-        public int Count
-        {
-            get { return Convert.ToInt32(TextBoxCount.Text); }
-            set
-            {
-                TextBoxCount.Text = value.ToString();
-            }
-        }
+        
 
         public WindowBindingProcedure(ProcedureLogic logic)
         {
@@ -45,8 +38,6 @@ namespace PerformerView
             List<ProcedureViewModel> list = logic.Read(null);
             if (list != null)
             {
-                //ComboBoxProcedures.DisplayMember = "ComponentName";
-                //ComboBoxProcedures.ValueMember = "Id";
                 ComboBoxProcedures.ItemsSource = list;
                 ComboBoxProcedures.SelectedItem = null;
             }
@@ -55,11 +46,20 @@ namespace PerformerView
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
 
+            if (ComboBoxProcedures.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите процедуру", "Ошибка", MessageBoxButton.OK,
+               MessageBoxImage.Error);
+                return;
+            }
+            this.DialogResult = true;
+            Close();
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            this.DialogResult = false;
+            Close();
         }
     }
 }

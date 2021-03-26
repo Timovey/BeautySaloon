@@ -23,10 +23,10 @@ namespace PerformerBusinessLogic.BindingModels
         // Может и private
         public string Password { get; set; }
 
-        public Dictionary<int, (string, int)> ClientProcedures { get; set; }
+        public Dictionary<int, string> ClientProcedures { get; set; }
 
-        public Dictionary<int, (string, int)> ClientPurchases { get; set; }
+        public Dictionary<int, string> ClientPurchases { get; set; }
 
-        public Dictionary<int, (string, int)> ClientVisits { get; set; }
+        public Dictionary<int, string> ClientVisits { get; set; }
     }
 }

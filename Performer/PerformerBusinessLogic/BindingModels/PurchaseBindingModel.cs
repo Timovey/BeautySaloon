@@ -12,6 +12,6 @@ namespace PerformerBusinessLogic.BindingModels
 
         public decimal Price { get; set; }
 
-        public Dictionary<int, (string, int)> PurchaseProcedures { get; set; }
+        public Dictionary<int, string> PurchaseProcedures { get; set; }
     }
 }

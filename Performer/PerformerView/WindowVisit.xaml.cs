@@ -29,7 +29,7 @@ namespace PerformerView
         public int Id { set { id = value; } }
         private readonly VisitLogic logic;
         private int? id;
-        private Dictionary<int, (string, int)> visitsProcedures;
+        private Dictionary<int, string> visitsProcedures;
 
         public WindowVisit(VisitLogic logic)
         {
@@ -62,7 +62,7 @@ namespace PerformerView
             }
             else
             {
-                visitsProcedures = new Dictionary<int, (string, int)>();
+                visitsProcedures = new Dictionary<int, string>();
             }
         }
         private void LoadData()
@@ -77,6 +77,8 @@ namespace PerformerView
                         DataGridProcedures.Items.Add(vp);
                     }
                 }
+                CalendarVisit.SelectedDate = null;
+
             }
             catch (Exception ex)
             {
@@ -87,32 +89,103 @@ namespace PerformerView
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
+            var window = Container.Resolve<WindowBindingProcedure>();
 
+            if (window.ShowDialog().Value == true)
+            {
+                if (visitsProcedures.ContainsKey(window.Id))
+                {
+                    visitsProcedures[window.Id] = (window.ProcedureName);
+                }
+                else
+                {
+                    visitsProcedures.Add(window.Id, window.ProcedureName);
+                }
+                LoadData();
+            }
         }
 
         private void buttonUpd_Click(object sender, RoutedEventArgs e)
         {
-
+            if (DataGridProcedures.SelectedCells.Count != 0)
+            {
+                var window = Container.Resolve<WindowBindingProcedure>();
+                int id = Convert.ToInt32(DataGridProcedures.SelectedCells[0]);
+                window.Id = id;
+                if (window.ShowDialog().Value == true)
+                {
+                    visitsProcedures[window.Id] = (window.ProcedureName);
+                    LoadData();
+                }
+            }
         }
 
         private void buttonDel_Click(object sender, RoutedEventArgs e)
         {
+            if (DataGridProcedures.SelectedCells.Count != 0)
+            {
+                var result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo,
+              MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
 
+                        visitsProcedures.Remove(Convert.ToInt32(DataGridProcedures.SelectedCells[0]));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
+                       MessageBoxImage.Error);
+                    }
+                    LoadData();
+                }
+            }
         }
 
         private void buttonRef_Click(object sender, RoutedEventArgs e)
         {
-
+            LoadData();
         }
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)
-        {
-
+        { 
+            if(CalendarVisit.SelectedDate == null)
+            {
+                MessageBox.Show("Заполните цену", "Ошибка", MessageBoxButton.OK,
+               MessageBoxImage.Error);
+                return;
+            }
+            if (visitsProcedures == null || visitsProcedures.Count == 0)
+            {
+                MessageBox.Show("Заполните компоненты", "Ошибка", MessageBoxButton.OK,
+               MessageBoxImage.Error);
+                return;
+            }
+            try
+            {
+                logic.CreateOrUpdate(new VisitBindingModel
+                {
+                    Id = id,
+                    Date = CalendarVisit.SelectedDate.Value,
+                    VisitProcedures = visitsProcedures
+                });
+                MessageBox.Show("Сохранение прошло успешно", "Сообщение",
+               MessageBoxButton.OK, MessageBoxImage.Information);
+                DialogResult = true;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
+               MessageBoxImage.Error);
+            }
         }
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            this.DialogResult = false;
+            Close();
         }
 
     }

@@ -17,7 +17,7 @@ namespace PerformerListImplements.Models
         public string Tel { get; set; }
 
         public string Login { get; set; }
-        // Может и private
+
         public string Password { get; set; }
 
         public Dictionary<int, int> ClientProcedures { get; set; }

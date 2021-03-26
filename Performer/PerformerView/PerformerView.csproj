@@ -64,8 +64,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MassageHelp\MassageButton.cs" />
-    <Compile Include="MassageHelp\MassageIcon.cs" />
     <Compile Include="WindowBindingProcedure.xaml.cs">
       <DependentUpon>WindowBindingProcedure.xaml</DependentUpon>
     </Compile>

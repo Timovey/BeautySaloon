@@ -117,16 +117,11 @@ namespace PerformerListImplements.Implements
             // обновляем существуюущие и добавляем новые
             foreach (var procedure in model.ClientProcedures)
             {
-                if (client.ClientProcedures.ContainsKey(procedure.Key))
-                {
-                    client.ClientProcedures[procedure.Key] =
-                    model.ClientProcedures[procedure.Key].Item2;
-                }
-                else
+                if (!client.ClientProcedures.ContainsKey(procedure.Key))
                 {
                     client.ClientProcedures.Add(procedure.Key,
-                    model.ClientProcedures[procedure.Key].Item2);
-                }
+               procedure.Key);
+                } 
             }
 
             // удаляем убранные
@@ -140,16 +135,12 @@ namespace PerformerListImplements.Implements
             // обновляем существуюущие и добавляем новые
             foreach (var purchase in model.ClientPurchases)
             {
-                if (client.ClientPurchases.ContainsKey(purchase.Key))
+                if (!client.ClientPurchases.ContainsKey(purchase.Key))
                 {
                     client.ClientPurchases[purchase.Key] =
-                    model.ClientPurchases[purchase.Key].Item2;
+                   purchase.Key;
                 }
-                else
-                {
-                    client.ClientPurchases.Add(purchase.Key,
-                    model.ClientPurchases[purchase.Key].Item2);
-                }
+               
             }
 
 
@@ -164,15 +155,10 @@ namespace PerformerListImplements.Implements
             // обновляем существуюущие и добавляем новые
             foreach (var visit in model.ClientVisits)
             {
-                if (client.ClientVisits.ContainsKey(visit.Key))
+                if (!client.ClientVisits.ContainsKey(visit.Key))
                 {
                     client.ClientVisits[visit.Key] =
-                    model.ClientVisits[visit.Key].Item2;
-                }
-                else
-                {
-                    client.ClientVisits.Add(visit.Key,
-                    model.ClientVisits[visit.Key].Item2);
+                    visit.Key;
                 }
             }
 
@@ -180,8 +166,8 @@ namespace PerformerListImplements.Implements
         }
         private ClientViewModel CreateModel(Client client)
         {
-            Dictionary<int, (string, int)> clientProcedures = new
-            Dictionary<int, (string, int)>();
+            Dictionary<int, string> clientProcedures = new
+            Dictionary<int, string>();
             foreach (var cp in client.ClientProcedures)
             {
                 string procedureName = string.Empty;
@@ -193,12 +179,12 @@ namespace PerformerListImplements.Implements
                         break;
                     }
                 }
-                clientProcedures.Add(cp.Key, (procedureName, cp.Value));
+                clientProcedures.Add(cp.Key, procedureName);
             }
 
 
-            Dictionary<int, (DateTime, int)> clientPurchases = new
-            Dictionary<int, (DateTime, int)>();
+            Dictionary<int, DateTime> clientPurchases = new
+            Dictionary<int, DateTime>();
             foreach (var cp in client.ClientPurchases)
             {
                 DateTime purchaseDate = DateTime.MinValue;
@@ -210,11 +196,11 @@ namespace PerformerListImplements.Implements
                         break;
                     }
                 }
-                clientPurchases.Add(cp.Key, (purchaseDate, cp.Value));
+                clientPurchases.Add(cp.Key, purchaseDate);
             }
 
-            Dictionary<int, (DateTime, int)> clientVisits = new
-            Dictionary<int, (DateTime, int)>();
+            Dictionary<int, DateTime> clientVisits = new
+            Dictionary<int, DateTime>();
             foreach (var cv in client.ClientVisits)
             {
                 DateTime visitDate = DateTime.MinValue;
@@ -226,7 +212,7 @@ namespace PerformerListImplements.Implements
                         break;
                     }
                 }
-                clientPurchases.Add(cv.Key, (visitDate, cv.Value));
+                clientPurchases.Add(cv.Key, visitDate);
             }
 
             return new ClientViewModel

@@ -116,15 +116,10 @@ namespace PerformerListImplements.Implements
             // обновляем существуюущие и добавляем новые
             foreach (var procedure in model.PurchaseProcedures)
             {
-                if (purchase.PurchaseProcedures.ContainsKey(procedure.Key))
+                if (!purchase.PurchaseProcedures.ContainsKey(procedure.Key))
                 {
                     purchase.PurchaseProcedures[procedure.Key] =
-                    model.PurchaseProcedures[procedure.Key].Item2;
-                }
-                else
-                {
-                    purchase.PurchaseProcedures.Add(procedure.Key,
-                    model.PurchaseProcedures[procedure.Key].Item2);
+                    procedure.Key;
                 }
             }
             return purchase;

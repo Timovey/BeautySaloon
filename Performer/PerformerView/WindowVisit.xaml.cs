@@ -16,6 +16,8 @@ using PerformerBusinessLogic.BusinessLogic;
 using PerformerBusinessLogic.BindingModels;
 using Unity;
 using System.Data;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace PerformerView
 {
@@ -51,7 +53,6 @@ namespace PerformerView
                     {
                         CalendarVisit.DisplayDate = view.Date;
                         visitsProcedures = view.VisitProcedures;
-                        LoadData();
                     }
                 }
                 catch (Exception ex)
@@ -63,7 +64,9 @@ namespace PerformerView
             else
             {
                 visitsProcedures = new Dictionary<int, string>();
+                CalendarVisit.SelectedDate = null;
             }
+            LoadData();
         }
         private void LoadData()
         {
@@ -71,14 +74,13 @@ namespace PerformerView
             {
                 if (visitsProcedures != null)
                 {
-                    DataGridProcedures.Columns.Clear();
-                    foreach (var vp in visitsProcedures)
-                    {
-                        DataGridProcedures.Items.Add(vp);
-                    }
-                }
-                CalendarVisit.SelectedDate = null;
 
+                    DataGridProcedures.ItemsSource = visitsProcedures.ToList();
+                    DataGridProcedures.Columns[0].Header = "Id";
+                    DataGridProcedures.Columns[0].Width = 0;
+                    DataGridProcedures.Columns[0].Visibility = Visibility.Hidden; 
+                    DataGridProcedures.Columns[1].Header = "Название процедуры:";
+                }
             }
             catch (Exception ex)
             {
@@ -110,7 +112,15 @@ namespace PerformerView
             if (DataGridProcedures.SelectedCells.Count != 0)
             {
                 var window = Container.Resolve<WindowBindingProcedure>();
-                int id = Convert.ToInt32(DataGridProcedures.SelectedCells[0]);
+                var conv = ((DataGridProcedures.SelectedItem as KeyValuePair<int, string>?));
+                int id = 0;
+                foreach (var p in visitsProcedures)
+                {
+                    if(p.Equals(conv))
+                    {
+                        id = p.Key;
+                    }
+                }
                 window.Id = id;
                 if (window.ShowDialog().Value == true)
                 {
@@ -152,7 +162,7 @@ namespace PerformerView
         { 
             if(CalendarVisit.SelectedDate == null)
             {
-                MessageBox.Show("Заполните цену", "Ошибка", MessageBoxButton.OK,
+                MessageBox.Show("Заполните дату", "Ошибка", MessageBoxButton.OK,
                MessageBoxImage.Error);
                 return;
             }

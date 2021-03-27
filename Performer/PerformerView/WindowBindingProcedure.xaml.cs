@@ -26,7 +26,7 @@ namespace PerformerView
         public IUnityContainer Container { get; set; }
         public int Id
         {
-            get { return Convert.ToInt32(ComboBoxProcedures.SelectedValue); }
+            get { return Convert.ToInt32((ComboBoxProcedures.SelectedItem as ComboBoxItem).DataContext); }
             set { ComboBoxProcedures.SelectedValue = value; }
         }
         public string ProcedureName { get { return ComboBoxProcedures.Text; } }
@@ -38,8 +38,18 @@ namespace PerformerView
             List<ProcedureViewModel> list = logic.Read(null);
             if (list != null)
             {
-                ComboBoxProcedures.ItemsSource = list;
+               // ComboBoxProcedures.ItemsSource = list;
+                //ComboBoxProcedures.Text = ComboBoxProcedures.ItemsSource as 
+                foreach(var e in list)
+                {
+                    ComboBoxItem item = new ComboBoxItem();
+                    item.Content = e.ProcedureName;
+                    item.DataContext = e.Id;
+
+                    ComboBoxProcedures.Items.Add(item);
+                }
                 ComboBoxProcedures.SelectedItem = null;
+                
             }
         }
 

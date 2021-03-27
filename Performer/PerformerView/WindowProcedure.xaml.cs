@@ -24,7 +24,7 @@ namespace PerformerView
     {
 
         [Dependency]
-        public IUnityContainer Container { get; set; } // mb new IU....
+        public IUnityContainer Container { get; set; } 
         public int Id { set { id = value; } }
         private readonly ProcedureLogic logic;
         private int? id;

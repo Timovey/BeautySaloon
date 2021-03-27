@@ -25,8 +25,8 @@ namespace PerformerBusinessLogic.BindingModels
 
         public Dictionary<int, string> ClientProcedures { get; set; }
 
-        public Dictionary<int, string> ClientPurchases { get; set; }
+        public Dictionary<int, DateTime> ClientPurchases { get; set; }
 
-        public Dictionary<int, string> ClientVisits { get; set; }
+        public Dictionary<int, DateTime> ClientVisits { get; set; }
     }
 }

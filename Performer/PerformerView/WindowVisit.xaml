@@ -28,8 +28,12 @@
             </WrapPanel>
         </GroupBox>
         <Label Content="Дата посещения: " HorizontalAlignment="Left" Height="36" Margin="253.948,44,0,0" VerticalAlignment="Top" Width="146" Grid.Column="1"/>
-        <Calendar x:Name="CalendarVisit" HorizontalAlignment="Left" Height="183" Margin="404.948,44,0,0" VerticalAlignment="Top" Width="208" Grid.Column="1"/>
+        <Calendar x:Name="CalendarVisit" HorizontalAlignment="Left" Height="183" Margin="404.948,44,0,0" VerticalAlignment="Top" 
+                  Width="208" Grid.Column="1" DisplayMode="Month" SelectionMode="SingleDate" SelectedDatesChanged="CalendarVisit_SelectedDatesChanged"
+                  IsTodayHighlighted="False"  />
         <Button x:Name="buttonSave"  Content="Сохранить" HorizontalAlignment="Left" Height="41" Margin="330.948,314,0,0" VerticalAlignment="Top" Width="139" Click="buttonSave_Click" Grid.Column="1"/>
         <Button x:Name="buttonCancel" Content="Отменить" HorizontalAlignment="Left" Height="47" Margin="498.948,314,0,0" VerticalAlignment="Top" Width="134" Click="buttonCancel_Click" Grid.Column="1"/>
+        <Label Content="Время:" HorizontalAlignment="Left" Height="33" Margin="28,32,0,0" VerticalAlignment="Top" Width="111"/>
+        <ComboBox x:Name="ComboBoxTime" Grid.Column="1" HorizontalAlignment="Left" Height="33" Margin="0,32,0,0" VerticalAlignment="Top" Width="187"/>
     </Grid>
 </Window>

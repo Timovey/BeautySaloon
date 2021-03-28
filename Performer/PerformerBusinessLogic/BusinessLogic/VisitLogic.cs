@@ -3,6 +3,7 @@ using PerformerBusinessLogic.ViewModels;
 using PerformerBusinessLogic.BindingModels;
 using System;
 using System.Collections.Generic;
+using PerformerBusinessLogic.Enums;
 
 namespace PerformerBusinessLogic.BusinessLogic
 {
@@ -57,6 +58,35 @@ namespace PerformerBusinessLogic.BusinessLogic
                 throw new Exception("Посещение не найдено");
             }
             _visitStorage.Delete(model);
+        }
+
+        public List<DateTime> GetPickDate(VisitBindingModel model)
+        {
+            var list = _visitStorage.GetFilteredList(model);
+
+            List<DateTime> dateOfDay = new List<DateTime>();
+            bool end = false;
+            TimeVisit time = TimeVisit.ten;
+            while (!end) // создали список дат на этот день (потом их будем удалять если они совпадают с эл-ми list)
+            {
+                DateTime date = new DateTime(model.Date.Year, model.Date.Month, model.Date.Day, Convert.ToInt32(time), 0, 0);
+                dateOfDay.Add(date);
+                time++;
+                if (time > TimeVisit.fourteen)
+                {
+                    end = true;
+                }
+            }
+
+            foreach (var item in list)
+            {
+                DateTime date = new DateTime(model.Date.Year, model.Date.Month, model.Date.Day, item.Date.Hour, 0, 0);
+                if (dateOfDay.Contains(date))
+                {
+                    dateOfDay.Remove(date);
+                }
+            }
+            return dateOfDay;
         }
     }
 }

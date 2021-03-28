@@ -26,31 +26,17 @@ namespace PerformerView
         public IUnityContainer Container { get; set; }
         public int Id
         {
-            get { return Convert.ToInt32((ComboBoxProcedures.SelectedItem as ComboBoxItem).DataContext); }
-            set { ComboBoxProcedures.SelectedValue = value; }
+            get { return Convert.ToInt32((ComboBoxProcedures.SelectedItem as ProcedureViewModel).Id); }
+            set { ComboBoxProcedures.SelectedItem = SetValue(value); }
         }
-        public string ProcedureName { get { return ComboBoxProcedures.Text; } }
-        
+        public string ProcedureName { get { return (ComboBoxProcedures.SelectedItem as ProcedureViewModel).ProcedureName; } }
+
 
         public WindowBindingProcedure(ProcedureLogic logic)
         {
             InitializeComponent();
-            List<ProcedureViewModel> list = logic.Read(null);
-            if (list != null)
-            {
-               // ComboBoxProcedures.ItemsSource = list;
-                //ComboBoxProcedures.Text = ComboBoxProcedures.ItemsSource as 
-                foreach(var e in list)
-                {
-                    ComboBoxItem item = new ComboBoxItem();
-                    item.Content = e.ProcedureName;
-                    item.DataContext = e.Id;
+            ComboBoxProcedures.ItemsSource = logic.Read(null);
 
-                    ComboBoxProcedures.Items.Add(item);
-                }
-                ComboBoxProcedures.SelectedItem = null;
-                
-            }
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
@@ -70,6 +56,18 @@ namespace PerformerView
         {
             this.DialogResult = false;
             Close();
+        }
+
+        private ProcedureViewModel SetValue(int value)
+        {
+            foreach(var item in ComboBoxProcedures.Items)
+            {
+                if((item as ProcedureViewModel).Id == value)
+                {
+                    return item as ProcedureViewModel;
+                }
+            }
+            return null;
         }
     }
 }

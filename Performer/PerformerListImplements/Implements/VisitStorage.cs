@@ -33,7 +33,7 @@ namespace PerformerListImplements.Implements
             List<VisitViewModel> result = new List<VisitViewModel>();
             foreach (var visit in source.Visits)
             {
-                if (visit.Date == model.Date)
+                if (visit.Date.Day == model.Date.Day)
                 {
                     result.Add(CreateModel(visit));
                 }

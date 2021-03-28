@@ -14,10 +14,9 @@ using System.Windows.Shapes;
 using PerformerBusinessLogic.ViewModels;
 using PerformerBusinessLogic.BusinessLogic;
 using PerformerBusinessLogic.BindingModels;
+using PerformerBusinessLogic.Enums;
 using Unity;
 using System.Data;
-using System.ComponentModel;
-using System.Reflection;
 
 namespace PerformerView
 {
@@ -66,6 +65,12 @@ namespace PerformerView
                 visitsProcedures = new Dictionary<int, string>();
                 CalendarVisit.SelectedDate = null;
             }
+            CalendarVisit.SelectedDate = DateTime.Now;
+            var list = logic.GetPickDate(new VisitBindingModel
+            {
+                Date = CalendarVisit.SelectedDate.Value
+            });
+            ComboBoxTime.ItemsSource = list;
             LoadData();
         }
         private void LoadData()
@@ -81,6 +86,7 @@ namespace PerformerView
                     DataGridProcedures.Columns[0].Visibility = Visibility.Hidden; 
                     DataGridProcedures.Columns[1].Header = "Название процедуры:";
                 }
+
             }
             catch (Exception ex)
             {
@@ -97,7 +103,7 @@ namespace PerformerView
             {
                 if (visitsProcedures.ContainsKey(window.Id))
                 {
-                    visitsProcedures[window.Id] = (window.ProcedureName);
+
                 }
                 else
                 {
@@ -119,12 +125,21 @@ namespace PerformerView
                     if(p.Equals(conv))
                     {
                         id = p.Key;
+                        break;
                     }
                 }
+                visitsProcedures.Remove(id);
                 window.Id = id;
                 if (window.ShowDialog().Value == true)
                 {
-                    visitsProcedures[window.Id] = (window.ProcedureName);
+                    if(visitsProcedures.ContainsValue(window.ProcedureName))
+                    {
+
+                    }
+                    else
+                    {
+                        visitsProcedures[window.Id] = (window.ProcedureName);
+                    }
                     LoadData();
                 }
             }
@@ -140,8 +155,15 @@ namespace PerformerView
                 {
                     try
                     {
-
-                        visitsProcedures.Remove(Convert.ToInt32(DataGridProcedures.SelectedCells[0]));
+                        var conv = ((DataGridProcedures.SelectedItem as KeyValuePair<int, string>?));
+                        foreach (var p in visitsProcedures)
+                        {
+                            if (p.Equals(conv))
+                            {
+                                visitsProcedures.Remove(p.Key);
+                                break;
+                            }
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -159,8 +181,15 @@ namespace PerformerView
         }
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)
-        { 
-            if(CalendarVisit.SelectedDate == null)
+        {
+            if (ComboBoxTime.SelectedItem == null)
+            {
+                MessageBox.Show("Заполните время", "Ошибка", MessageBoxButton.OK,
+               MessageBoxImage.Error);
+                return;
+            }
+
+            if (CalendarVisit.SelectedDate == null)
             {
                 MessageBox.Show("Заполните дату", "Ошибка", MessageBoxButton.OK,
                MessageBoxImage.Error);
@@ -168,7 +197,7 @@ namespace PerformerView
             }
             if (visitsProcedures == null || visitsProcedures.Count == 0)
             {
-                MessageBox.Show("Заполните компоненты", "Ошибка", MessageBoxButton.OK,
+                MessageBox.Show("Заполните процедуры", "Ошибка", MessageBoxButton.OK,
                MessageBoxImage.Error);
                 return;
             }
@@ -177,7 +206,7 @@ namespace PerformerView
                 logic.CreateOrUpdate(new VisitBindingModel
                 {
                     Id = id,
-                    Date = CalendarVisit.SelectedDate.Value,
+                    Date = ((DateTime)ComboBoxTime.SelectedItem),
                     VisitProcedures = visitsProcedures
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
@@ -198,5 +227,28 @@ namespace PerformerView
             Close();
         }
 
+        /// <summary>
+        /// Логика обработки смены даты в календаре
+        /// </summary>
+        private void CalendarVisit_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+                if(!CalendarVisit.SelectedDate.HasValue)
+                {
+                return;
+                }
+                if(CalendarVisit.SelectedDate.Value < DateTime.Today)
+                {
+                    MessageBox.Show("Выберете корректную дату", "Ошибка", MessageBoxButton.OK,
+                   MessageBoxImage.Error);
+                    return;
+                }
+
+                CalendarVisit.DisplayDate = CalendarVisit.SelectedDate.Value;
+                var list = logic.GetPickDate(new VisitBindingModel
+                {
+                    Date = CalendarVisit.SelectedDate.Value
+                });
+                ComboBoxTime.ItemsSource = list;
+        }
     }
 }

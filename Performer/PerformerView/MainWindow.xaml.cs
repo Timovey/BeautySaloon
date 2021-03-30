@@ -59,5 +59,28 @@ namespace PerformerView
                 LoadData();
             }
         }
+
+        private void MenuItemBindingReceipt_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<WindowBindingReciept>();
+            if (window.ShowDialog().Value == true)
+            {
+                LoadData();
+            }
+        }
+
+        private void MenuItemGetList_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<WindowDistributionList>();
+            if (window.ShowDialog().Value == true)
+            {
+                LoadData();
+            }
+        }
+
+        private void MenuItemGetReport_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
     }
 }

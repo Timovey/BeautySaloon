@@ -14,6 +14,12 @@
 
             <MenuItem x:Name="MenuItemPurchase" Header="Покупка" Click="MenuItemPurchase_Click"></MenuItem>
 
+            <MenuItem x:Name="MenuItemBindingReceipt" Header="Привязать к чеку" Click="MenuItemBindingReceipt_Click"></MenuItem>
+
+            <MenuItem x:Name="MenuItemGetList" Header="Получить список выдач" Click="MenuItemGetList_Click"></MenuItem>
+
+            <MenuItem x:Name="MenuItemGetReport" Header="Отчет" Click="MenuItemGetReport_Click"></MenuItem>
+
         </Menu>
 
     </Grid>

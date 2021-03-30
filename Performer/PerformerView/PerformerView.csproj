@@ -67,6 +67,12 @@
     <Compile Include="WindowBindingProcedure.xaml.cs">
       <DependentUpon>WindowBindingProcedure.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowBindingReciept.xaml.cs">
+      <DependentUpon>WindowBindingReciept.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowDistributionList.xaml.cs">
+      <DependentUpon>WindowDistributionList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowProcedure.xaml.cs">
       <DependentUpon>WindowProcedure.xaml</DependentUpon>
     </Compile>
@@ -101,6 +107,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="WindowBindingProcedure.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowBindingReciept.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowDistributionList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

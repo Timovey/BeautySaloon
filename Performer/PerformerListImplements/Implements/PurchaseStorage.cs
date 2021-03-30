@@ -127,21 +127,23 @@ namespace PerformerListImplements.Implements
         private PurchaseViewModel CreateModel(Purchase purchase)
         {
             // требуется дополнительно получить список процедур для посещения 
-            Dictionary<int, string> purchaseProcedures = new
-            Dictionary<int, string>();
+            Dictionary<int, (string, decimal)> purchaseProcedures = new
+            Dictionary<int, (string, decimal)>();
 
             foreach (var pp in purchase.PurchaseProcedures)
             {
                 string procedureName = string.Empty;
+                decimal procedurePrice = 0;
                 foreach (var procedure in source.Procedures)
                 {
                     if (pp.Key == procedure.Id)
                     {
                         procedureName = procedure.ProcedureName;
+                        procedurePrice = procedure.Price;
                         break;
                     }
                 }
-                purchaseProcedures.Add(pp.Key, procedureName);
+                purchaseProcedures.Add(pp.Key, (procedureName, procedurePrice));
             }
             return new PurchaseViewModel
             {

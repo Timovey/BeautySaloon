@@ -13,6 +13,6 @@ namespace PerformerBusinessLogic.ViewModels
         [DisplayName("Цена (руб)")]
         public decimal Price { get; set; }
 
-        public Dictionary<int, string> PurchaseProcedures { get; set; }
+        public Dictionary<int, (string, decimal)> PurchaseProcedures { get; set; }
     }
 }

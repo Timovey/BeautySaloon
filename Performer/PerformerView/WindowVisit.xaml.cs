@@ -158,7 +158,7 @@ namespace PerformerView
                 {
                     try
                     {
-                        var conv = ((DataGridProcedures.SelectedItem as KeyValuePair<int, string>?));
+                        var conv = (DataGridProcedures.SelectedItem as KeyValuePair<int, string>?);
                         foreach (var p in visitsProcedures)
                         {
                             if (p.Equals(conv))

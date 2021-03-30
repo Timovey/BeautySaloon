@@ -30,7 +30,7 @@ namespace PerformerView
             set { ComboBoxProcedures.SelectedItem = SetValue(value); }
         }
         public string ProcedureName { get { return (ComboBoxProcedures.SelectedItem as ProcedureViewModel).ProcedureName; } }
-
+        public decimal ProcedurePrice { get { return (ComboBoxProcedures.SelectedItem as ProcedureViewModel).Price; } }
 
         public WindowBindingProcedure(ProcedureLogic logic)
         {

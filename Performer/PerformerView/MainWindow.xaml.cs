@@ -50,5 +50,14 @@ namespace PerformerView
         {
 
         }
+
+        private void MenuItemPurchase_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<WindowPurchases>();
+            if (window.ShowDialog().Value == true)
+            {
+                LoadData();
+            }
+        }
     }
 }

@@ -19,18 +19,19 @@ using System.Data;
 using System.ComponentModel;
 using System.Reflection;
 
+
 namespace PerformerView
 {
     /// <summary>
-    /// Логика взаимодействия для WindowProcedures.xaml
+    /// Логика взаимодействия для WindowPurchases.xaml
     /// </summary>
-    public partial class WindowProcedures : Window
+    public partial class WindowPurchases : Window
     {
         [Dependency]
         public IUnityContainer Container { get; set; }
-        private readonly ProcedureLogic logic;
+        private readonly PurchaseLogic logic;
 
-        public WindowProcedures(ProcedureLogic logic)
+        public WindowPurchases(PurchaseLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
@@ -38,7 +39,7 @@ namespace PerformerView
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            var window = Container.Resolve<WindowProcedure>();
+            var window = Container.Resolve<WindowPurchase>();
             if (window.ShowDialog().Value == true)
             {
                 LoadData();
@@ -47,34 +48,34 @@ namespace PerformerView
 
         private void buttonUpd_Click(object sender, RoutedEventArgs e)
         {
-            if(dataGridProcedures.SelectedCells.Count != 0)
+            if (dataGridPurchases.SelectedCells.Count != 0)
             {
-                var window = Container.Resolve<WindowProcedure>();
-                var cellInfo = dataGridProcedures.SelectedCells[0];
-                ProcedureViewModel content = (ProcedureViewModel)(cellInfo.Item);
+                var window = Container.Resolve<WindowPurchase>();
+                var cellInfo = dataGridPurchases.SelectedCells[0];
+                PurchaseViewModel content = (PurchaseViewModel)(cellInfo.Item);
                 window.Id = Convert.ToInt32(content.Id);
                 if (window.ShowDialog().Value == true)
                 {
                     LoadData();
                 }
-               
+
             }
         }
 
         private void buttonDel_Click(object sender, RoutedEventArgs e)
         {
-            if (dataGridProcedures.SelectedCells.Count != 0)
+            if (dataGridPurchases.SelectedCells.Count != 0)
             {
                 var result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo,
                MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
+                    var cellInfo = dataGridPurchases.SelectedCells[0];
+                    PurchaseViewModel content = (PurchaseViewModel)(cellInfo.Item);
+                    int id = Convert.ToInt32(content.Id);
                     try
                     {
-                        var cellInfo = dataGridProcedures.SelectedCells[0];
-                        ProcedureViewModel content = (ProcedureViewModel)(cellInfo.Item);
-                        int id = Convert.ToInt32(content.Id);
-                        logic.Delete(new ProcedureBindingModel { Id = id });
+                        logic.Delete(new PurchaseBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {
@@ -84,7 +85,6 @@ namespace PerformerView
                     LoadData();
                 }
             }
-   
         }
 
         private void buttonRef_Click(object sender, RoutedEventArgs e)
@@ -92,22 +92,19 @@ namespace PerformerView
             LoadData();
         }
 
-        private void WindowProcedures_Loaded(object sender, RoutedEventArgs e)
+        private void WindowPurchases_Loaded(object sender, RoutedEventArgs e)
         {
-          
             LoadData();
         }
         private void LoadData()
         {
-           
+
             var list = logic.Read(null);
             if (list != null)
             {
-                dataGridProcedures.ItemsSource = list;
-                dataGridProcedures.Columns[0].Visibility = Visibility.Hidden;
-                dataGridProcedures.Columns[0].Width = 0;
-
-                
+                dataGridPurchases.ItemsSource = list;
+                dataGridPurchases.Columns[0].Visibility = Visibility.Hidden;
+                dataGridPurchases.Columns[3].Visibility = Visibility.Hidden;
             }
         }
 
@@ -160,5 +157,6 @@ namespace PerformerView
             }
             return null;
         }
+
     }
 }

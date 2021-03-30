@@ -73,6 +73,12 @@
     <Compile Include="WindowProcedures.xaml.cs">
       <DependentUpon>WindowProcedures.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowPurchase.xaml.cs">
+      <DependentUpon>WindowPurchase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowPurchases.xaml.cs">
+      <DependentUpon>WindowPurchases.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowRegistration.xaml.cs">
       <DependentUpon>WindowRegistration.xaml</DependentUpon>
     </Compile>
@@ -103,6 +109,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowProcedures.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowPurchase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowPurchases.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

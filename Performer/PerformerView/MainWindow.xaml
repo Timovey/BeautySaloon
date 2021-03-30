@@ -11,6 +11,9 @@
             <MenuItem x:Name="MenuItemProcedure" Header="Процедура" Click="MenuItemProcedure_Click"></MenuItem>
             
             <MenuItem x:Name="MenuItemVisit" Header="Посещение" Click="MenuItemVisit_Click"></MenuItem>
+
+            <MenuItem x:Name="MenuItemPurchase" Header="Покупка" Click="MenuItemPurchase_Click"></MenuItem>
+
         </Menu>
 
     </Grid>

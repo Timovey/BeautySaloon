@@ -31,6 +31,7 @@ namespace PerformerView
         private readonly VisitLogic logic;
         private int? id;
         private Dictionary<int, string> visitsProcedures;
+        private DateTime oldDate = DateTime.MinValue;
 
         public WindowVisit(VisitLogic logic)
         {
@@ -51,6 +52,8 @@ namespace PerformerView
                     if (view != null)
                     {
                         CalendarVisit.DisplayDate = view.Date;
+                        CalendarVisit.SelectedDate = view.Date;
+                        oldDate = view.Date;
                         visitsProcedures = view.VisitProcedures;
                     }
                 }
@@ -63,14 +66,18 @@ namespace PerformerView
             else
             {
                 visitsProcedures = new Dictionary<int, string>();
-                CalendarVisit.SelectedDate = null;
+                CalendarVisit.SelectedDate = DateTime.Now;
             }
-            CalendarVisit.SelectedDate = DateTime.Now;
             var list = logic.GetPickDate(new VisitBindingModel
             {
                 Date = CalendarVisit.SelectedDate.Value
             });
             ComboBoxTime.ItemsSource = list;
+            if(oldDate != DateTime.MinValue)
+            {
+               list.Add(oldDate);
+               ComboBoxTime.SelectedItem = oldDate;
+            }
             LoadData();
         }
         private void LoadData()
@@ -132,11 +139,7 @@ namespace PerformerView
                 window.Id = id;
                 if (window.ShowDialog().Value == true)
                 {
-                    if(visitsProcedures.ContainsValue(window.ProcedureName))
-                    {
-
-                    }
-                    else
+                    if(!visitsProcedures.ContainsValue(window.ProcedureName))
                     {
                         visitsProcedures[window.Id] = (window.ProcedureName);
                     }
@@ -240,6 +243,7 @@ namespace PerformerView
                 {
                     MessageBox.Show("Выберете корректную дату", "Ошибка", MessageBoxButton.OK,
                    MessageBoxImage.Error);
+                CalendarVisit.SelectedDate = DateTime.Now;
                     return;
                 }
 
@@ -248,7 +252,12 @@ namespace PerformerView
                 {
                     Date = CalendarVisit.SelectedDate.Value
                 });
-                ComboBoxTime.ItemsSource = list;
+                if (oldDate != DateTime.MinValue && oldDate.Day == CalendarVisit.SelectedDate.Value.Day)
+                {
+                    list.Add(oldDate);
+                    ComboBoxTime.SelectedItem = oldDate;
+                }
+            ComboBoxTime.ItemsSource = list;
         }
     }
 }

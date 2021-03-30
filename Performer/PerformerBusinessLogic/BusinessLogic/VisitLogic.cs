@@ -62,6 +62,7 @@ namespace PerformerBusinessLogic.BusinessLogic
 
         public List<DateTime> GetPickDate(VisitBindingModel model)
         {
+            
             var list = _visitStorage.GetFilteredList(model);
 
             List<DateTime> dateOfDay = new List<DateTime>();

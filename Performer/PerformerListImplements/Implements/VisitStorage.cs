@@ -126,8 +126,8 @@ namespace PerformerListImplements.Implements
         private VisitViewModel CreateModel(Visit visit)
         {
             // требуется дополнительно получить список процедур для посещения 
-            Dictionary<int, (string, int)> visitProcedures = new
-            Dictionary<int, (string, int)>();
+            Dictionary<int, string> visitProcedures = new
+            Dictionary<int, string>();
 
             foreach (var vp in visit.VisitProcedures)
             {
@@ -140,12 +140,13 @@ namespace PerformerListImplements.Implements
                         break;
                     }
                 }
-                visitProcedures.Add(vp.Key, (procedureName, vp.Value));
+                visitProcedures.Add(vp.Key, procedureName);
             }
             return new VisitViewModel
             {
                 Id = visit.Id,
-                Date = visit.Date
+                Date = visit.Date,
+                VisitProcedures = visitProcedures
             };
         }
     }

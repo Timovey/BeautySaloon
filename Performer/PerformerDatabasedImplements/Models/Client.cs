@@ -19,11 +19,5 @@ namespace PerformerListImplements.Models
         public string Login { get; set; }
 
         public string Password { get; set; }
-
-        public Dictionary<int, int> ClientProcedures { get; set; }
-
-        public Dictionary<int, int> ClientPurchases { get; set; }
-
-        public Dictionary<int, int> ClientVisits { get; set; }
     }
 }

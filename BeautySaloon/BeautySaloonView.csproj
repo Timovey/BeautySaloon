@@ -188,8 +188,23 @@
     <Compile Include="WindowCosmetics.xaml.cs">
       <DependentUpon>WindowCosmetics.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowDistribution.xaml.cs">
+      <DependentUpon>WindowDistribution.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowDistributionCosmetic.xaml.cs">
+      <DependentUpon>WindowDistributionCosmetic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowDistributions.xaml.cs">
+      <DependentUpon>WindowDistributions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowInital.xaml.cs">
       <DependentUpon>WindowInital.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowReceipt.xaml.cs">
+      <DependentUpon>WindowReceipt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowReceiptCosmetic.xaml.cs">
+      <DependentUpon>WindowReceiptCosmetic.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowReceipts.xaml.cs">
       <DependentUpon>WindowReceipts.xaml</DependentUpon>
@@ -221,7 +236,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WindowDistribution.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowDistributionCosmetic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowDistributions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowInital.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowReceipt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowReceiptCosmetic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

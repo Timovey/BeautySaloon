@@ -11,9 +11,9 @@ using Unity;
 namespace BeautySaloon
 {
     /// <summary>
-    /// Логика взаимодействия для WindowCosmetics.xaml
+    /// Логика взаимодействия для WindowDistributions.xaml
     /// </summary>
-    public partial class WindowCosmetics : Window
+    public partial class WindowDistributions : Window
     {
         [Dependency]
         public IUnityContainer Container { get; set; }
@@ -21,15 +21,15 @@ namespace BeautySaloon
 
         private int? id;
 
-        private readonly CosmeticLogic logic;
+        private readonly DistributionLogic logic;
 
-        public WindowCosmetics(CosmeticLogic logic)
+        public WindowDistributions(DistributionLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
         }
 
-        private void WindowCosmetics_Loaded(object sender, RoutedEventArgs e)
+        private void WindowDistributions_Loaded(object sender, RoutedEventArgs e)
         {
             LoadData();
         }
@@ -38,12 +38,12 @@ namespace BeautySaloon
         {
             try
             {
-                var list = logic.Read(new CosmeticBindingModel { EmployeeId = id });
+                var list = logic.Read(new DistributionBindingModel { EmployeeId = id });
                 if (list != null)
                 {
                     dataGrid.ItemsSource = list;
-                    dataGrid.Columns[0].Visibility = Visibility.Hidden;
                     dataGrid.Columns[1].Visibility = Visibility.Hidden;
+                    dataGrid.Columns[3].Visibility = Visibility.Hidden;
                 }
             }
             catch (Exception ex)
@@ -54,7 +54,7 @@ namespace BeautySaloon
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            var window = Container.Resolve<WindowCosmetic>();
+            var window = Container.Resolve<WindowDistribution>();
             window.EmployeeId = (int)id;
             if (window.ShowDialog().Value)
             {
@@ -66,8 +66,8 @@ namespace BeautySaloon
         {
             if (dataGrid.SelectedCells.Count != 0)
             {
-                var window = Container.Resolve<WindowCosmetic>();
-                window.Id = Convert.ToInt32(((CosmeticViewModel)dataGrid.SelectedCells[0].Item).Id);
+                var window = Container.Resolve<WindowDistribution>();
+                window.Id = Convert.ToInt32(((DistributionViewModel)dataGrid.SelectedCells[0].Item).Id);
                 window.EmployeeId = (int)id;
                 if (window.ShowDialog().Value)
                 {
@@ -82,10 +82,10 @@ namespace BeautySaloon
             {
                 if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    int id = Convert.ToInt32(((CosmeticViewModel)dataGrid.SelectedCells[0].Item).Id);
+                    int id = Convert.ToInt32(((DistributionViewModel)dataGrid.SelectedCells[0].Item).Id);
                     try
                     {
-                        logic.Delete(new CosmeticBindingModel { Id = id });
+                        logic.Delete(new DistributionBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {

@@ -95,7 +95,7 @@ namespace BeautySaloon
                     PhoneNumber = TextBoxPhoneNumber.Text
                 });
                 MessageBox.Show("Решистрация прошла успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.DialogResult = true;
+                DialogResult = true;
                 Close();
             }
             catch (Exception ex)

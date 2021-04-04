@@ -2,6 +2,7 @@
 using BeautySaloonBusinessLogic.BusinessLogics;
 using BeautySaloonBusinessLogic.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
@@ -11,53 +12,98 @@ using Unity;
 namespace BeautySaloon
 {
     /// <summary>
-    /// Логика взаимодействия для WindowCosmetics.xaml
+    /// Логика взаимодействия для WindowDistribution.xaml
     /// </summary>
-    public partial class WindowCosmetics : Window
+    public partial class WindowDistribution : Window
     {
         [Dependency]
         public IUnityContainer Container { get; set; }
+
         public int Id { set { id = value; } }
+
+        public int EmployeeId { set { employeeId = value; } }
+
+        private readonly DistributionLogic logic;
 
         private int? id;
 
-        private readonly CosmeticLogic logic;
+        private int? employeeId;
 
-        public WindowCosmetics(CosmeticLogic logic)
+        private Dictionary<int, (string, int)> distributionCosmetics;
+
+        public WindowDistribution(DistributionLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
         }
 
-        private void WindowCosmetics_Loaded(object sender, RoutedEventArgs e)
+        private void WindowDistribution_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadData();
+            if (id.HasValue)
+            {
+                try
+                {
+                    DistributionViewModel view = logic.Read(new DistributionBindingModel { Id = id.Value })?[0];
+                    if (view != null)
+                    {
+                        TextBoxIssueDate.Text = view.IssueDate.ToString();
+                        distributionCosmetics = view.DistributionCosmetics;
+                        LoadData();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                distributionCosmetics = new Dictionary<int, (string, int)>();
+            }
         }
 
         private void LoadData()
         {
             try
             {
-                var list = logic.Read(new CosmeticBindingModel { EmployeeId = id });
-                if (list != null)
+                if (distributionCosmetics != null)
                 {
+                    dataGrid.Columns.Clear();
+                    var list = new List<DataGridDistributionItemViewModel>();
+                    foreach (var dc in distributionCosmetics)
+                    {
+                        list.Add(new DataGridDistributionItemViewModel()
+                        {
+                            Id = dc.Key,
+                            CosmeticName = dc.Value.Item1,
+                            Count = dc.Value.Item2
+                        });
+                    }
                     dataGrid.ItemsSource = list;
                     dataGrid.Columns[0].Visibility = Visibility.Hidden;
-                    dataGrid.Columns[1].Visibility = Visibility.Hidden;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            TextBoxIssueDate.Text = (DateTime.Now).ToString();
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            var window = Container.Resolve<WindowCosmetic>();
-            window.EmployeeId = (int)id;
+            var window = Container.Resolve<WindowDistributionCosmetic>();
+            window.EmployeeId = (int)employeeId;
             if (window.ShowDialog().Value)
             {
+                if (distributionCosmetics.ContainsKey(window.Id))
+                {
+                    distributionCosmetics[window.Id] = (window.CosmeticName, window.Count);
+                }
+                else
+                {
+                    distributionCosmetics.Add(window.Id, (window.CosmeticName, window.Count));
+                }
                 LoadData();
             }
         }
@@ -66,11 +112,13 @@ namespace BeautySaloon
         {
             if (dataGrid.SelectedCells.Count != 0)
             {
-                var window = Container.Resolve<WindowCosmetic>();
-                window.Id = Convert.ToInt32(((CosmeticViewModel)dataGrid.SelectedCells[0].Item).Id);
-                window.EmployeeId = (int)id;
+                var window = Container.Resolve<WindowDistributionCosmetic>();
+                window.Id = Convert.ToInt32(((DataGridDistributionItemViewModel)dataGrid.SelectedCells[0].Item).Id);
+                window.Count = Convert.ToInt32(((DataGridDistributionItemViewModel)dataGrid.SelectedCells[0].Item).Count);
+                window.EmployeeId = (int)employeeId;
                 if (window.ShowDialog().Value)
                 {
+                    distributionCosmetics[window.Id] = (window.CosmeticName, window.Count);
                     LoadData();
                 }
             }
@@ -82,10 +130,10 @@ namespace BeautySaloon
             {
                 if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    int id = Convert.ToInt32(((CosmeticViewModel)dataGrid.SelectedCells[0].Item).Id);
+                    int id = Convert.ToInt32(((DistributionViewModel)dataGrid.SelectedCells[0].Item).Id);
                     try
                     {
-                        logic.Delete(new CosmeticBindingModel { Id = id });
+                        logic.Delete(new DistributionBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {
@@ -99,6 +147,38 @@ namespace BeautySaloon
         private void buttonRef_Click(object sender, RoutedEventArgs e)
         {
             LoadData();
+        }
+
+        private void buttonSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (distributionCosmetics == null || distributionCosmetics.Count == 0)
+            {
+                MessageBox.Show("Заполните косметику", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            try
+            {
+                logic.CreateOrUpdate(new DistributionBindingModel
+                {
+                    Id = id,
+                    IssueDate = DateTime.Now,
+                    DistributionCosmetics = distributionCosmetics,
+                    EmployeeId = employeeId
+                });
+                MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                DialogResult = true;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void buttonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
         }
 
         /// <summary>

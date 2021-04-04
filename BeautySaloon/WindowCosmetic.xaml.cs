@@ -72,7 +72,7 @@ namespace BeautySaloon
                     EmployeeId = employeeId
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.DialogResult = true;
+                DialogResult = true;
                 Close();
             }
             catch (Exception ex)

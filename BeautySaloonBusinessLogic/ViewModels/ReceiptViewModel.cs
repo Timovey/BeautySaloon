@@ -6,6 +6,7 @@ namespace BeautySaloonBusinessLogic.ViewModels
 {
     public class ReceiptViewModel
     {
+        [DisplayName("Номер чека")]
         public int Id { get; set; }
 
         public int EmployeeId { get; set; }

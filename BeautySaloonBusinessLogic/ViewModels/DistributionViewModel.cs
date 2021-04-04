@@ -6,6 +6,7 @@ namespace BeautySaloonBusinessLogic.ViewModels
 {
     public class DistributionViewModel
     {
+        [DisplayName("Номер выдачи")]
         public int Id { get; set; }
 
         public int EmployeeId { get; set; }

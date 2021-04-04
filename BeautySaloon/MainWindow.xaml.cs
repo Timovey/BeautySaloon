@@ -52,7 +52,9 @@ namespace BeautySaloon
 
         private void DistributionMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            var window = Container.Resolve<WindowDistributions>();
+            window.Id = (int)id;
+            window.ShowDialog();
         }
 
         private void PurchaseMenuItem_Click(object sender, RoutedEventArgs e)

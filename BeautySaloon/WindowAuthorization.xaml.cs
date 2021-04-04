@@ -36,13 +36,14 @@ namespace BeautySaloon
             }
             try
             {
-                var view = logic.Read(new EmployeeBindingModel { 
-                    Login = TextBoxLogin.Text, 
-                    Password = TextBoxPassword.Text 
+                var view = logic.Read(new EmployeeBindingModel
+                {
+                    Login = TextBoxLogin.Text,
+                    Password = TextBoxPassword.Text
                 })?[0];
                 if (view != null)
                 {
-                    this.DialogResult = true;
+                    DialogResult = true;
                     var window = Container.Resolve<MainWindow>();
                     window.Id = view.Id;
                     window.ShowDialog();

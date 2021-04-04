@@ -106,7 +106,7 @@ namespace PerformerView
         {
             var window = Container.Resolve<WindowBindingProcedure>();
 
-            if (window.ShowDialog().Value == true)
+            if (window.ShowDialog().Value)
             {
                 if (visitsProcedures.ContainsKey(window.Id))
                 {
@@ -137,7 +137,7 @@ namespace PerformerView
                 }
                 visitsProcedures.Remove(id);
                 window.Id = id;
-                if (window.ShowDialog().Value == true)
+                if (window.ShowDialog().Value)
                 {
                     if(!visitsProcedures.ContainsValue(window.ProcedureName))
                     {

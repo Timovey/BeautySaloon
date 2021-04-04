@@ -37,19 +37,19 @@ namespace PerformerBusinessLogic.BusinessLogic
                 ParagraphAlignment = ParagraphAlignment.Center
             });
             decimal sumOrder = 0;
-            foreach (var order in info.Orders)
-            {
-                CreateRow(new PdfRowParameters
-                {
-                    Table = table,
-                    Texts = new List<string> { order.DateCreate.ToShortDateString(),
-order.ManufactureName, order.Count.ToString(), order.Sum.ToString(), order.Status.ToString()
-},
-                    Style = "Normal",
-                    ParagraphAlignment = ParagraphAlignment.Left
-                });
-                sumOrder += order.Sum;
-            }
+//            foreach (var order in info.Orders)
+//            {
+//                CreateRow(new PdfRowParameters
+//                {
+//                    Table = table,
+//                    Texts = new List<string> { order.DateCreate.ToShortDateString(),
+//order.ManufactureName, order.Count.ToString(), order.Sum.ToString(), order.Status.ToString()
+//},
+//                    Style = "Normal",
+//                    ParagraphAlignment = ParagraphAlignment.Left
+//                });
+//                sumOrder += order.Sum;
+//            }
             Paragraph paragraphSum = section.AddParagraph($"Итого:{sumOrder.ToString()}");
             paragraphSum.Format.SpaceAfter = "4cm";
             paragraphSum.Format.Alignment = ParagraphAlignment.Right;

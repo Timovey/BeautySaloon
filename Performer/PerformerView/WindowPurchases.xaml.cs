@@ -40,7 +40,7 @@ namespace PerformerView
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowPurchase>();
-            if (window.ShowDialog().Value == true)
+            if (window.ShowDialog().Value)
             {
                 LoadData();
             }
@@ -54,7 +54,7 @@ namespace PerformerView
                 var cellInfo = dataGridPurchases.SelectedCells[0];
                 PurchaseViewModel content = (PurchaseViewModel)(cellInfo.Item);
                 window.Id = Convert.ToInt32(content.Id);
-                if (window.ShowDialog().Value == true)
+                if (window.ShowDialog().Value)
                 {
                     LoadData();
                 }

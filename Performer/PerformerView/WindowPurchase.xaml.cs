@@ -117,7 +117,7 @@ namespace PerformerView
         {
             var window = Container.Resolve<WindowBindingProcedure>();
 
-            if (window.ShowDialog().Value == true)
+            if (window.ShowDialog().Value)
             {
                 if (!purchasesProcedures.ContainsKey(window.Id)) { 
                     purchasesProcedures.Add(window.Id, (window.ProcedureName, window.ProcedurePrice));
@@ -136,7 +136,7 @@ namespace PerformerView
 
                 purchasesProcedures.Remove(content.Id);
                 window.Id = Convert.ToInt32(content.Id);
-                if (window.ShowDialog().Value == true)
+                if (window.ShowDialog().Value)
                 {
                     if (!purchasesProcedures.ContainsValue((window.ProcedureName, window.ProcedurePrice)))
                     {

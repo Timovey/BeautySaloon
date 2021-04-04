@@ -39,7 +39,7 @@ namespace PerformerView
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowVisit>();
-            if (window.ShowDialog().Value == true)
+            if (window.ShowDialog().Value)
             {
                 LoadData();
             }
@@ -53,7 +53,7 @@ namespace PerformerView
                 var cellInfo = dataGridVisits.SelectedCells[0];
                 VisitViewModel content = (VisitViewModel)(cellInfo.Item);
                 window.Id = Convert.ToInt32(content.Id);
-                if (window.ShowDialog().Value == true)
+                if (window.ShowDialog().Value)
                 {
                     LoadData();
                 }

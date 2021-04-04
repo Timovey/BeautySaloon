@@ -32,50 +32,34 @@ namespace PerformerView
         private void MenuItemProcedure_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowProcedures>();
-            if (window.ShowDialog().Value == true)
-            {
-                LoadData();
-            }
+            window.ShowDialog();
         }
 
         private void MenuItemVisit_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowVisits>();
-            if (window.ShowDialog().Value == true)
-            {
-                LoadData();
-            }
-        }
-        private void LoadData()
-        {
+            window.ShowDialog();
 
         }
-
         private void MenuItemPurchase_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowPurchases>();
-            if (window.ShowDialog().Value == true)
-            {
-                LoadData();
-            }
+            window.ShowDialog();
+
         }
 
         private void MenuItemBindingReceipt_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowBindingReciept>();
-            if (window.ShowDialog().Value == true)
-            {
-                LoadData();
-            }
+            window.ShowDialog();
+
         }
 
         private void MenuItemGetList_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowDistributionList>();
-            if (window.ShowDialog().Value == true)
-            {
-                LoadData();
-            }
+            window.ShowDialog();
+
         }
 
         private void MenuItemGetReport_Click(object sender, RoutedEventArgs e)

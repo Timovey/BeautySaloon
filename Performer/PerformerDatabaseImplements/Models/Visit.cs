@@ -13,7 +13,7 @@ namespace PerformerDatabaseImplements.Models
         public DateTime Date { get; set; }
 
         [ForeignKey("VisitId")]
-        public virtual List<Procedure> Procedures { get; set; }
+        public virtual List<ProcedureVisit> ProcedureVisit{ get; set; }
 
         public virtual Client Client { get; set; }
     }

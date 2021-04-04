@@ -18,9 +18,11 @@ namespace PerformerDatabaseImplements.Models
         [Required]
         public decimal Price { get; set; }
 
-        public virtual Visit Visit { get; set; }
+        [ForeignKey("ProcedureId")]
+        public virtual List<ProcedurePurchase> ProcedurePurchase { get; set; }
 
-        public virtual Purchase Purchase { get; set; }
+        [ForeignKey("ProcedureId")]
+        public virtual List<ProcedureVisit> ProcedureVisit { get; set; }
 
         public virtual Client Client { get; set; }
     }

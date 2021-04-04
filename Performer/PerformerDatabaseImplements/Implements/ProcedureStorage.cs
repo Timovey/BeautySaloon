@@ -21,7 +21,7 @@ namespace PerformerDatabaseImplements.Implements
                     Duration = rec.Duration,
                     Price = rec.Price,
                     ProcedureName = rec.ProcedureName,
-                    ClientId = context.Clients.FirstOrDefault(rec => )
+
                 })
 .ToList();
             }

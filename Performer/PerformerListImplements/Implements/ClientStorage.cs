@@ -222,9 +222,7 @@ namespace PerformerListImplements.Implements
                ClientSurame = client.ClientSurame,
                Mail = client.Mail,
                Tel = client.Tel,
-               ClientProcedures = clientProcedures,
-               ClientPurchases = clientPurchases,
-               ClientVisits = clientVisits
+               
             };
         }
     }

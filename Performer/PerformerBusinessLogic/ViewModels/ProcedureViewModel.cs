@@ -8,6 +8,7 @@ namespace PerformerBusinessLogic.ViewModels
     public class ProcedureViewModel
     {
         public int Id { get; set; }
+        public int ClientId { get; set; }
         [DisplayName("Имя")]
         public string ProcedureName { get; set; }
         [DisplayName("Продолжительность (мин)")]

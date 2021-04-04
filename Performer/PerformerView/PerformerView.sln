@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PerformerBusinessLogic", ".
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PerformerListImplements", "..\PerformerListImplements\PerformerListImplements.csproj", "{7181760A-FA47-4736-B00F-E8315F1CC83E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformerDatabasedImplements", "..\PerformerDatabasedImplements\PerformerDatabasedImplements.csproj", "{E5729E8E-D050-47ED-9E94-0D2498E916DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformerDatabaseImplements", "..\PerformerDatabaseImplements\PerformerDatabaseImplements.csproj", "{B9E647A7-CE67-4FA2-A3F1-ED3789973E1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{7181760A-FA47-4736-B00F-E8315F1CC83E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7181760A-FA47-4736-B00F-E8315F1CC83E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7181760A-FA47-4736-B00F-E8315F1CC83E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E5729E8E-D050-47ED-9E94-0D2498E916DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E5729E8E-D050-47ED-9E94-0D2498E916DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E5729E8E-D050-47ED-9E94-0D2498E916DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E5729E8E-D050-47ED-9E94-0D2498E916DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9E647A7-CE67-4FA2-A3F1-ED3789973E1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9E647A7-CE67-4FA2-A3F1-ED3789973E1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9E647A7-CE67-4FA2-A3F1-ED3789973E1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9E647A7-CE67-4FA2-A3F1-ED3789973E1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

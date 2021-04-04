@@ -282,6 +282,10 @@
       <Project>{481d185a-572d-42eb-96b6-cf1a89dc0c47}</Project>
       <Name>PerformerBusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PerformerDatabaseImplements\PerformerDatabaseImplements.csproj">
+      <Project>{b9e647a7-ce67-4fa2-a3f1-ed3789973e1b}</Project>
+      <Name>PerformerDatabaseImplements</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PerformerListImplements\PerformerListImplements.csproj">
       <Project>{7181760a-fa47-4736-b00f-e8315f1cc83e}</Project>
       <Name>PerformerListImplements</Name>

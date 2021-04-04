@@ -20,8 +20,8 @@ namespace PerformerBusinessLogic.ViewModels
         [DisplayName("Телефон")]
         public string Tel { get; set; }
 
-        public Dictionary<int, string> ClientProcedures { get; set; }
-        public Dictionary<int, DateTime> ClientPurchases { get; set; }
-        public Dictionary<int, DateTime> ClientVisits { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+
     }
 }

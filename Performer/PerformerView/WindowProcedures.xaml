@@ -18,5 +18,6 @@
                   IsReadOnly="True" ColumnWidth="auto" RowHeaderWidth="0" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" 
                   CanUserResizeColumns="False" CanUserResizeRows="False">
         </DataGrid>
+        <Label x:Name="labelClient" HorizontalAlignment="Left" Height="26" Margin="62,10,0,0" VerticalAlignment="Top" Width="151"/>
     </Grid>
 </Window>

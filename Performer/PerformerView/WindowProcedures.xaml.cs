@@ -30,6 +30,10 @@ namespace PerformerView
         public IUnityContainer Container { get; set; }
         private readonly ProcedureLogic logic;
 
+        public int Id { set { id = value; } }
+
+        private int? id;
+
         public WindowProcedures(ProcedureLogic logic)
         {
             InitializeComponent();
@@ -39,6 +43,7 @@ namespace PerformerView
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowProcedure>();
+            window.ClientId = (int)id;
             if (window.ShowDialog().Value)
             {
                 LoadData();
@@ -53,6 +58,7 @@ namespace PerformerView
                 var cellInfo = dataGridProcedures.SelectedCells[0];
                 ProcedureViewModel content = (ProcedureViewModel)(cellInfo.Item);
                 window.Id = Convert.ToInt32(content.Id);
+                window.ClientId = (int)id;
                 if (window.ShowDialog().Value)
                 {
                     LoadData();
@@ -100,14 +106,19 @@ namespace PerformerView
         private void LoadData()
         {
            
-            var list = logic.Read(null);
+            var list = logic.Read(new ProcedureBindingModel
+            {
+                ClientId = id
+            });
             if (list != null)
             {
                 dataGridProcedures.ItemsSource = list;
                 dataGridProcedures.Columns[0].Visibility = Visibility.Hidden;
                 dataGridProcedures.Columns[0].Width = 0;
 
-                
+                dataGridProcedures.Columns[1].Visibility = Visibility.Hidden;
+                dataGridProcedures.Columns[1].Width = 0;
+
             }
         }
 

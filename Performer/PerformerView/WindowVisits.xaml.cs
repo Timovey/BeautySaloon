@@ -30,6 +30,10 @@ namespace PerformerView
         public IUnityContainer Container { get; set; }
         private readonly VisitLogic logic;
 
+        public int Id { set { id = value; } }
+
+        private int? id;
+
         public WindowVisits(VisitLogic logic)
         {
             InitializeComponent();
@@ -39,6 +43,7 @@ namespace PerformerView
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowVisit>();
+            window.ClientId = (int)id;
             if (window.ShowDialog().Value)
             {
                 LoadData();
@@ -53,6 +58,7 @@ namespace PerformerView
                 var cellInfo = dataGridVisits.SelectedCells[0];
                 VisitViewModel content = (VisitViewModel)(cellInfo.Item);
                 window.Id = Convert.ToInt32(content.Id);
+                window.ClientId = (int)id;
                 if (window.ShowDialog().Value)
                 {
                     LoadData();
@@ -98,12 +104,16 @@ namespace PerformerView
         private void LoadData()
         {
 
-            var list = logic.Read(null);
+            var list = logic.Read(new VisitBindingModel
+            {
+                ClientId = id
+            });
             if (list != null)
             {
                 dataGridVisits.ItemsSource = list;
                 dataGridVisits.Columns[0].Visibility = Visibility.Hidden;
-                dataGridVisits.Columns[2].Visibility = Visibility.Hidden;
+                dataGridVisits.Columns[1].Visibility = Visibility.Hidden;
+                dataGridVisits.Columns[3].Visibility = Visibility.Hidden;
             }
         }
 

@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using PerformerBusinessLogic.BindingModels;
 using Unity;
 using PerformerBusinessLogic.BusinessLogic;
 using PerformerBusinessLogic.ViewModels;
@@ -32,10 +22,16 @@ namespace PerformerView
         public string ProcedureName { get { return (ComboBoxProcedures.SelectedItem as ProcedureViewModel).ProcedureName; } }
         public decimal ProcedurePrice { get { return (ComboBoxProcedures.SelectedItem as ProcedureViewModel).Price; } }
 
+        public int ClientId { set { clientId = value; } }
+
+        private int? clientId;
+
+        private readonly ProcedureLogic logic;
+
         public WindowBindingProcedure(ProcedureLogic logic)
         {
             InitializeComponent();
-            ComboBoxProcedures.ItemsSource = logic.Read(null);
+            this.logic = logic;
 
         }
 
@@ -68,6 +64,18 @@ namespace PerformerView
                 }
             }
             return null;
+        }
+
+        private void WindowBindingProcedure_Loaded(object sender, RoutedEventArgs e)
+        {
+            var list = logic.Read(new ProcedureBindingModel
+            {
+                ClientId = clientId
+            });
+            if(list != null)
+            {
+                ComboBoxProcedures.ItemsSource = list;
+            }
         }
     }
 }

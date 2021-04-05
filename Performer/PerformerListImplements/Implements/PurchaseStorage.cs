@@ -33,7 +33,7 @@ namespace PerformerListImplements.Implements
             List<PurchaseViewModel> result = new List<PurchaseViewModel>();
             foreach (var purchase in source.Purchases)
             {
-                if (purchase.Date == model.Date)
+                if (purchase.ClientId == model.ClientId)
                 {
                     result.Add(CreateModel(purchase));
                 }
@@ -103,6 +103,7 @@ namespace PerformerListImplements.Implements
         private Purchase CreateModel(PurchaseBindingModel model, Purchase purchase)
         {
             purchase.Date = model.Date;
+            purchase.ClientId = (int)model.ClientId;
             purchase.Price = model.Price;
 
             // удаляем убранные
@@ -150,6 +151,7 @@ namespace PerformerListImplements.Implements
                 Id = purchase.Id,
                 Date = purchase.Date,
                 Price = purchase.Price,
+                ClientId = purchase.ClientId,
                 PurchaseProcedures = purchaseProcedures
             };
         }

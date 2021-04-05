@@ -28,8 +28,10 @@ namespace PerformerView
         [Dependency]
         public IUnityContainer Container { get; set; }
         public int Id { set { id = value; } }
+        public int ClientId { set { clientId = value; } }
         private readonly VisitLogic logic;
         private int? id;
+        private int? clientId;
         private Dictionary<int, string> visitsProcedures;
         private DateTime oldDate = DateTime.MinValue;
 
@@ -105,15 +107,10 @@ namespace PerformerView
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowBindingProcedure>();
-
+            window.ClientId = (int)clientId;
             if (window.ShowDialog().Value)
             {
-                if (visitsProcedures.ContainsKey(window.Id))
-                {
-
-                }
-                else
-                {
+                if (!visitsProcedures.ContainsKey(window.Id)) { 
                     visitsProcedures.Add(window.Id, window.ProcedureName);
                 }
                 LoadData();
@@ -137,6 +134,7 @@ namespace PerformerView
                 }
                 visitsProcedures.Remove(id);
                 window.Id = id;
+                window.ClientId = (int)clientId;
                 if (window.ShowDialog().Value)
                 {
                     if(!visitsProcedures.ContainsValue(window.ProcedureName))
@@ -210,7 +208,8 @@ namespace PerformerView
                 {
                     Id = id,
                     Date = ((DateTime)ComboBoxTime.SelectedItem),
-                    VisitProcedures = visitsProcedures
+                    VisitProcedures = visitsProcedures,
+                    ClientId = clientId
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                MessageBoxButton.OK, MessageBoxImage.Information);

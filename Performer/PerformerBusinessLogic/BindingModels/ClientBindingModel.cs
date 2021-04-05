@@ -20,13 +20,8 @@ namespace PerformerBusinessLogic.BindingModels
         public string Tel { get; set; }
         
         public string Login { get; set; }
-        // Может и private
+
         public string Password { get; set; }
 
-        public Dictionary<int, string> ClientProcedures { get; set; }
-
-        public Dictionary<int, DateTime> ClientPurchases { get; set; }
-
-        public Dictionary<int, DateTime> ClientVisits { get; set; }
     }
 }

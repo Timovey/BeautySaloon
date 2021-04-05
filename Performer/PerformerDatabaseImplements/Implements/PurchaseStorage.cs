@@ -172,6 +172,7 @@ namespace PerformerDatabaseImplements.Implements
                 {
                     PurchaseId = purchase.Id,
                     ProcedureId = pp.Key,
+                    
                 });
                 context.SaveChanges();
             }

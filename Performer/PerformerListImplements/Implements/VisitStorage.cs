@@ -33,7 +33,7 @@ namespace PerformerListImplements.Implements
             List<VisitViewModel> result = new List<VisitViewModel>();
             foreach (var visit in source.Visits)
             {
-                if (visit.Date.Day == model.Date.Day)
+                if (visit.ClientId == model.ClientId)
                 {
                     result.Add(CreateModel(visit));
                 }
@@ -103,6 +103,7 @@ namespace PerformerListImplements.Implements
         private Visit CreateModel(VisitBindingModel model, Visit visit)
         {
             visit.Date = model.Date;
+            visit.ClientId = (int)model.ClientId;
             // удаляем убранные
             foreach (var key in visit.VisitProcedures.Keys.ToList())
             {
@@ -146,6 +147,7 @@ namespace PerformerListImplements.Implements
             {
                 Id = visit.Id,
                 Date = visit.Date,
+                ClientId = visit.ClientId,
                 VisitProcedures = visitProcedures
             };
         }

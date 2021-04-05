@@ -7,7 +7,7 @@ namespace PerformerListImplements.Models
     public class Procedure
     {
         public int Id { get; set; }
-
+        public int ClientId { get; set; }
         public string ProcedureName { get; set; }
 
         //Продолжительность в минутах

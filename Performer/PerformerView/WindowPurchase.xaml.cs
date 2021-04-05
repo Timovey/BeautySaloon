@@ -28,8 +28,10 @@ namespace PerformerView
         [Dependency]
         public IUnityContainer Container { get; set; }
         public int Id { set { id = value; } }
+        public int ClientId { set { clientId = value; } }
         private readonly PurchaseLogic logic;
         private int? id;
+        private int? clientId;
         private Dictionary<int, (string, decimal)> purchasesProcedures;
 
         public WindowPurchase(PurchaseLogic logic)
@@ -116,7 +118,7 @@ namespace PerformerView
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowBindingProcedure>();
-
+            window.ClientId = (int)clientId;
             if (window.ShowDialog().Value)
             {
                 if (!purchasesProcedures.ContainsKey(window.Id)) { 
@@ -136,6 +138,7 @@ namespace PerformerView
 
                 purchasesProcedures.Remove(content.Id);
                 window.Id = Convert.ToInt32(content.Id);
+                window.ClientId = (int)clientId;
                 if (window.ShowDialog().Value)
                 {
                     if (!purchasesProcedures.ContainsValue((window.ProcedureName, window.ProcedurePrice)))
@@ -193,7 +196,8 @@ namespace PerformerView
                     Id = id,
                     Date = DateTime.Now,
                     Price = Convert.ToDecimal(textBoxSum.Text),
-                    PurchaseProcedures = purchasesProcedures
+                    PurchaseProcedures = purchasesProcedures,
+                    ClientId = clientId
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                MessageBoxButton.OK, MessageBoxImage.Information);

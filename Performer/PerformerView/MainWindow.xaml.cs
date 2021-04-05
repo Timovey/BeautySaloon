@@ -28,18 +28,21 @@ namespace PerformerView
         private void MenuItemProcedure_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowProcedures>();
+            window.Id = (int)id;
             window.ShowDialog();
         }
 
         private void MenuItemVisit_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowVisits>();
+            window.Id = (int)id;
             window.ShowDialog();
 
         }
         private void MenuItemPurchase_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowPurchases>();
+            window.Id = (int)id;
             window.ShowDialog();
 
         }

@@ -34,7 +34,7 @@ namespace PerformerListImplements.Implements
             List<ProcedureViewModel> result = new List<ProcedureViewModel>();
             foreach (var procedure in source.Procedures)
             {
-                if (procedure.ProcedureName.Contains(model.ProcedureName))
+                if (procedure.ClientId == model.ClientId )
                 {
                     result.Add(CreateModel(procedure));
                 }
@@ -102,6 +102,7 @@ namespace PerformerListImplements.Implements
             procedure.ProcedureName = model.ProcedureName;
             procedure.Price = model.Price;
             procedure.Duration = model.Duration;
+            procedure.ClientId = (int)model.ClientId;
 
             return procedure;
         }
@@ -112,8 +113,9 @@ namespace PerformerListImplements.Implements
                 Id = procedure.Id,
                 ProcedureName = procedure.ProcedureName,
                 Price = procedure.Price,
-                Duration = procedure.Duration
-            };
+                Duration = procedure.Duration,
+                ClientId = procedure.ClientId
+        };
         }
     }
 }

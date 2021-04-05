@@ -31,6 +31,10 @@ namespace PerformerView
         public IUnityContainer Container { get; set; }
         private readonly PurchaseLogic logic;
 
+        public int Id { set { id = value; } }
+
+        private int? id;
+
         public WindowPurchases(PurchaseLogic logic)
         {
             InitializeComponent();
@@ -40,6 +44,7 @@ namespace PerformerView
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WindowPurchase>();
+            window.ClientId = (int)id;
             if (window.ShowDialog().Value)
             {
                 LoadData();
@@ -54,6 +59,7 @@ namespace PerformerView
                 var cellInfo = dataGridPurchases.SelectedCells[0];
                 PurchaseViewModel content = (PurchaseViewModel)(cellInfo.Item);
                 window.Id = Convert.ToInt32(content.Id);
+                window.ClientId = (int)id;
                 if (window.ShowDialog().Value)
                 {
                     LoadData();
@@ -99,12 +105,16 @@ namespace PerformerView
         private void LoadData()
         {
 
-            var list = logic.Read(null);
+            var list = logic.Read(new PurchaseBindingModel
+            {
+                ClientId = id
+            });
             if (list != null)
             {
                 dataGridPurchases.ItemsSource = list;
                 dataGridPurchases.Columns[0].Visibility = Visibility.Hidden;
-                dataGridPurchases.Columns[3].Visibility = Visibility.Hidden;
+                dataGridPurchases.Columns[1].Visibility = Visibility.Hidden;
+                dataGridPurchases.Columns[4].Visibility = Visibility.Hidden;
             }
         }
 

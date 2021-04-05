@@ -26,9 +26,10 @@ namespace PerformerView
         [Dependency]
         public IUnityContainer Container { get; set; } 
         public int Id { set { id = value; } }
+        public int ClientId { set { clientId = value; } }
         private readonly ProcedureLogic logic;
         private int? id;
-
+        private int? clientId;
         public WindowProcedure(ProcedureLogic logic)
         {
             InitializeComponent();
@@ -84,7 +85,8 @@ namespace PerformerView
                     Id = id,
                     ProcedureName = textBoxName.Text,
                     Duration = Convert.ToInt32(textBoxDuration.Text),
-                    Price = Convert.ToInt32(textBoxPrice.Text)
+                    Price = Convert.ToInt32(textBoxPrice.Text),
+                    ClientId = clientId
                 });
               
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",

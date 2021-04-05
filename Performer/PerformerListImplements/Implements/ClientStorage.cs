@@ -48,8 +48,7 @@ namespace PerformerListImplements.Implements
             }
             foreach (var client in source.Clients)
             {
-                if (client.Id == model.Id || (client.ClientName.Contains(model.ClientName) 
-                    && client.ClientSurame.Contains(model.ClientSurname)))
+                if (client.Id == model.Id)
                 {
                     return CreateModel(client);
                 }
@@ -170,7 +169,7 @@ namespace PerformerListImplements.Implements
 
             return client;
         }
-        private ClientViewModel CreateModel(Client client)
+        private ClientViewModel CreateModel(Client client) //тут ошибка в чтении
         {
             Dictionary<int, string> clientProcedures = new
             Dictionary<int, string>();
@@ -218,7 +217,7 @@ namespace PerformerListImplements.Implements
                         break;
                     }
                 }
-                clientPurchases.Add(cv.Key, visitDate);
+                clientVisits.Add(cv.Key, visitDate);
             }
 
             return new ClientViewModel
@@ -228,7 +227,8 @@ namespace PerformerListImplements.Implements
                ClientSurame = client.ClientSurame,
                Mail = client.Mail,
                Tel = client.Tel,
-               
+               Login = client.Login,
+               Password = client.Password
             };
         }
     }

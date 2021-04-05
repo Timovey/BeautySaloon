@@ -15,14 +15,7 @@ namespace PerformerDatabaseImplements.Implements
             using (var context = new PerformerDatabaseContext())
             {
                 return context.Procedures
-                .Select(rec => new ProcedureViewModel
-                {
-                    Id = rec.Id,
-                    Duration = rec.Duration,
-                    Price = rec.Price,
-                    ProcedureName = rec.ProcedureName,
-
-                })
+                .Select(CreateModel)
 .ToList();
             }
         }
@@ -35,14 +28,8 @@ namespace PerformerDatabaseImplements.Implements
             using (var context = new PerformerDatabaseContext())
             {
                 return context.Procedures
-                .Where(rec => rec.ProcedureName.Contains(model.ProcedureName))
-               .Select(rec => new ProcedureViewModel
-               {
-                   Id = rec.Id,
-                   Duration = rec.Duration,
-                   Price = rec.Price,
-                   ProcedureName = rec.ProcedureName
-               })
+                .Where(rec => rec.ClientId == model.ClientId || rec.ProcedureName.Contains(model.ProcedureName))
+               .Select(CreateModel)
                 .ToList();
             }
         }
@@ -58,13 +45,7 @@ namespace PerformerDatabaseImplements.Implements
                 .FirstOrDefault(rec => rec.ProcedureName == model.ProcedureName ||
                rec.Id == model.Id);
                 return procedure != null ?
-                new ProcedureViewModel
-                {
-                    Id = procedure.Id,
-                    Duration = procedure.Duration,
-                    Price = procedure.Price,
-                    ProcedureName = procedure.ProcedureName
-                } :
+                CreateModel(procedure) :
                null;
             }
         }
@@ -107,11 +88,24 @@ namespace PerformerDatabaseImplements.Implements
                 }
             }
         }
+        private ProcedureViewModel CreateModel(Procedure procedure)
+        {
+            return new ProcedureViewModel
+            {
+                Id = procedure.Id,
+                ProcedureName = procedure.ProcedureName,
+                Duration = procedure.Duration,
+                Price = procedure.Price,
+                ClientId = procedure.ClientId
+            };
+        }
         private Procedure CreateModel(ProcedureBindingModel model, Procedure procedure)
         {
             procedure.ProcedureName = model.ProcedureName;
             procedure.Price = model.Price;
             procedure.Duration = model.Duration;
+            procedure.ClientId = model.ClientId.Value;
+
             return procedure;
         }
     }

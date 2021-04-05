@@ -13,7 +13,7 @@ namespace PerformerBusinessLogic.BindingModels
 
         public string ClientName { get; set; }
 
-        public string ClientSurame { get; set; }
+        public string ClientSurname { get; set; }
 
         public string Mail { get; set; }
 

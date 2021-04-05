@@ -6,34 +6,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-
 namespace PerformerDatabaseImplements.Implements
 {
-    public class VisitStorage : IVisitStorage
+    public class PurchaseStorage : IPurchaseStorage
     {
-        public List<VisitViewModel> GetFullList()
+        public List<PurchaseViewModel> GetFullList()
         {
             using (var context = new PerformerDatabaseContext())
             {
-                return context.Visits
+                return context.Purchases
                     .Include(rec => rec.Client)
-                .Include(rec => rec.ProcedureVisit)
+                .Include(rec => rec.ProcedurePurchase)
                .ThenInclude(rec => rec.Procedure)
                .ToList()
-               .Select(rec => new VisitViewModel
+               .Select(rec => new PurchaseViewModel
                {
                    Id = rec.Id,
                    ClientId = rec.ClientId,
                    Date = rec.Date,
-                   VisitProcedures = rec.ProcedureVisit
+                   PurchaseProcedures = rec.ProcedurePurchase
                 .ToDictionary(recPC => recPC.ProcedureId, recPC =>
-               (recPC.Procedure?.ProcedureName))
+               (recPC.Procedure?.ProcedureName, recPC.Procedure.Price))
                })
                .ToList();
 
             }
         }
-        public List<VisitViewModel> GetFilteredList(VisitBindingModel model)
+        public List<PurchaseViewModel> GetFilteredList(PurchaseBindingModel model)
         {
             if (model == null)
             {
@@ -41,24 +40,24 @@ namespace PerformerDatabaseImplements.Implements
             }
             using (var context = new PerformerDatabaseContext())
             {
-                return context.Visits
+                return context.Purchases
                     .Include(rec => rec.Client)
-                             .Include(rec => rec.ProcedureVisit)
+                             .Include(rec => rec.ProcedurePurchase)
                .ThenInclude(rec => rec.Procedure)
                .Where(rec => rec.Date == model.Date)
                .ToList()
-               .Select(rec => new VisitViewModel
+               .Select(rec => new PurchaseViewModel
                {
                    Id = rec.Id,
                    ClientId = rec.ClientId,
                    Date = rec.Date,
-                   VisitProcedures = rec.ProcedureVisit
+                   PurchaseProcedures = rec.ProcedurePurchase
                 .ToDictionary(recPC => recPC.ProcedureId, recPC =>
-               (recPC.Procedure?.ProcedureName))
+               (recPC.Procedure?.ProcedureName, recPC.Procedure.Price))
                }).ToList();
             }
         }
-        public VisitViewModel GetElement(VisitBindingModel model)
+        public PurchaseViewModel GetElement(PurchaseBindingModel model)
         {
             if (model == null)
             {
@@ -66,26 +65,26 @@ namespace PerformerDatabaseImplements.Implements
             }
             using (var context = new PerformerDatabaseContext())
             {
-                var visit = context.Visits
+                var visit = context.Purchases
                     .Include(rec => rec.Client)
-                .Include(rec => rec.ProcedureVisit)
+                .Include(rec => rec.ProcedurePurchase)
                .ThenInclude(rec => rec.Procedure)
                .FirstOrDefault(rec => rec.Date == model.Date || rec.Id
                == model.Id);
                 return visit != null ?
-                 new VisitViewModel
+                 new PurchaseViewModel
                  {
                      Id = visit.Id,
                      ClientId = visit.ClientId,
                      Date = visit.Date,
-                     VisitProcedures = visit.ProcedureVisit
+                     PurchaseProcedures = visit.ProcedurePurchase
                 .ToDictionary(recPC => recPC.ProcedureId, recPC =>
-               (recPC.Procedure?.ProcedureName))
+               (recPC.Procedure?.ProcedureName, recPC.Procedure.Price))
                  } :
                null;
             }
         }
-        public void Insert(VisitBindingModel model)
+        public void Insert(PurchaseBindingModel model)
         {
 
             using (var context = new PerformerDatabaseContext())
@@ -94,7 +93,7 @@ namespace PerformerDatabaseImplements.Implements
                 {
                     try
                     {
-                        CreateModel(model, new Visit(), context);
+                        CreateModel(model, new Purchase(), context);
                         context.SaveChanges();
                         transaction.Commit();
                     }
@@ -106,7 +105,7 @@ namespace PerformerDatabaseImplements.Implements
                 }
             }
         }
-        public void Update(VisitBindingModel model)
+        public void Update(PurchaseBindingModel model)
         {
             using (var context = new PerformerDatabaseContext())
             {
@@ -114,7 +113,7 @@ namespace PerformerDatabaseImplements.Implements
                 {
                     try
                     {
-                        var element = context.Visits.FirstOrDefault(rec => rec.Id ==
+                        var element = context.Purchases.FirstOrDefault(rec => rec.Id ==
                        model.Id);
                         if (element == null)
                         {
@@ -132,15 +131,15 @@ namespace PerformerDatabaseImplements.Implements
                 }
             }
         }
-        public void Delete(VisitBindingModel model)
+        public void Delete(PurchaseBindingModel model)
         {
             using (var context = new PerformerDatabaseContext())
             {
-                Visit element = context.Visits.FirstOrDefault(rec => rec.Id ==
+                Purchase element = context.Purchases.FirstOrDefault(rec => rec.Id ==
                model.Id);
                 if (element != null)
                 {
-                    context.Visits.Remove(element);
+                    context.Purchases.Remove(element);
                     context.SaveChanges();
                 }
                 else
@@ -150,33 +149,33 @@ namespace PerformerDatabaseImplements.Implements
             }
         }
 
-        private Visit CreateModel(VisitBindingModel model, Visit visit,
+        private Purchase CreateModel(PurchaseBindingModel model, Purchase purchase,
        PerformerDatabaseContext context)
         {
-            visit.Date = model.Date;
-            visit.ClientId = model.ClientId.Value;
+            purchase.Date = model.Date;
+            purchase.ClientId = model.ClientId.Value;
 
             if (model.Id.HasValue)
             {
-                var VisitComponents = context.ProcedureVisits.Where(rec =>
-               rec.VisitId == model.Id.Value).ToList();
+                var PurchaseComponents = context.ProcedurePurchases.Where(rec =>
+               rec.PurchaseId == model.Id.Value).ToList();
 
-                context.ProcedureVisits.RemoveRange(VisitComponents.Where(rec =>
-               !model.VisitProcedures.ContainsKey(rec.ProcedureId)).ToList());
+                context.ProcedurePurchases.RemoveRange(PurchaseComponents.Where(rec =>
+               !model.PurchaseProcedures.ContainsKey(rec.ProcedureId)).ToList());
                 context.SaveChanges();
 
             }
             // добавили новые
-            foreach (var vp in model.VisitProcedures)
+            foreach (var pp in model.PurchaseProcedures)
             {
-                context.ProcedureVisits.Add(new ProcedureVisit
+                context.ProcedurePurchases.Add(new ProcedurePurchase
                 {
-                    VisitId = visit.Id,
-                    ProcedureId = vp.Key,
+                    PurchaseId = purchase.Id,
+                    ProcedureId = pp.Key,
                 });
                 context.SaveChanges();
             }
-            return visit;
+            return purchase;
         }
     }
 }

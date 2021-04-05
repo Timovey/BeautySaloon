@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PerformerBusinessLogic.BindingModels;
+using PerformerBusinessLogic.BusinessLogic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Unity;
 
 namespace PerformerView
@@ -24,9 +13,16 @@ namespace PerformerView
         [Dependency]
         public IUnityContainer Container { get; set; }
 
-        public MainWindow()
+        public int Id { set { id = value; } }
+
+        private int? id;
+
+        private ClientLogic logic;
+
+        public MainWindow(ClientLogic logic)
         {
             InitializeComponent();
+            this.logic = logic;
         }
 
         private void MenuItemProcedure_Click(object sender, RoutedEventArgs e)
@@ -65,6 +61,12 @@ namespace PerformerView
         private void MenuItemGetReport_Click(object sender, RoutedEventArgs e)
         {
            
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            var client= logic.Read(new ClientBindingModel { Id = id })?[0];
+            labelClient.Content = "Клиент: " + client.ClientName + " " + client.ClientSurame;
         }
     }
 }

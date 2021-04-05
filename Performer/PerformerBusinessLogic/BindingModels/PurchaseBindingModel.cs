@@ -7,6 +7,7 @@ namespace PerformerBusinessLogic.BindingModels
     public class PurchaseBindingModel
     {
         public int? Id { get; set; }
+        public int? ClientId { get; set; }
 
         public DateTime Date { get; set; }
 

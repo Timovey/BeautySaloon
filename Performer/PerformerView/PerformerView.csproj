@@ -167,6 +167,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="WindowAutorization.xaml.cs">
+      <DependentUpon>WindowAutorization.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowBindingProcedure.xaml.cs">
       <DependentUpon>WindowBindingProcedure.xaml</DependentUpon>
     </Compile>
@@ -175,6 +178,9 @@
     </Compile>
     <Compile Include="WindowDistributionList.xaml.cs">
       <DependentUpon>WindowDistributionList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowInitial.xaml.cs">
+      <DependentUpon>WindowInitial.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowProcedure.xaml.cs">
       <DependentUpon>WindowProcedure.xaml</DependentUpon>
@@ -209,6 +215,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="WindowAutorization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowBindingProcedure.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -218,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowDistributionList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowInitial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

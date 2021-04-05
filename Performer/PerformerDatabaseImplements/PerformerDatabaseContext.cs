@@ -15,6 +15,8 @@ namespace PerformerDatabaseImplements
         }
         public virtual DbSet<Procedure> Procedures { set; get; }
         public virtual DbSet<Purchase> Purchases { set; get; }
+        public virtual DbSet<ProcedurePurchase> ProcedurePurchases { get; set; }
+        public virtual DbSet<ProcedureVisit> ProcedureVisits { get; set; }
         public virtual DbSet<Visit> Visits { set; get; }
         public virtual DbSet<Client> Clients { set; get; }
     }

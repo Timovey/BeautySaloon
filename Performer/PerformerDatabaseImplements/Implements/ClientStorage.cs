@@ -37,7 +37,8 @@ namespace PerformerDatabaseImplements.Implements
             }
             using (var context = new PerformerDatabaseContext())
             {
-                return context.Clients.Include(x => x.Procedure).Include(x => x.Purchase).Include(x => x.Visit)
+                return context.Clients
+                    //.Include(x => x.Procedure).Include(x => x.Purchase).Include(x => x.Visit)
                 .Where(rec => rec.Login == model.Login && rec.Password == rec.Password)
                 .Select(rec => new ClientViewModel
                 {
@@ -61,7 +62,8 @@ namespace PerformerDatabaseImplements.Implements
             }
             using (var context = new PerformerDatabaseContext())
             {
-                var client = context.Clients.Include(x => x.Procedure).Include(x => x.Purchase).Include(x => x.Visit)
+                var client = context.Clients
+                    //.Include(x => x.Procedure).Include(x => x.Purchase).Include(x => x.Visit)
                 .FirstOrDefault(rec => rec.Login == model.Login ||
                 rec.Id == model.Id);
                 return client != null ?
@@ -122,7 +124,7 @@ namespace PerformerDatabaseImplements.Implements
         private Client CreateModel(ClientBindingModel model, Client client, PerformerDatabaseContext database)
         {
             client.ClientName = model.ClientName;
-            client.ClientSurame = model.ClientSurame;
+            client.ClientSurame = model.ClientSurname;
             client.Login = model.Login;
             client.Password = model.Password;
             client.Mail = model.Login;

@@ -8,6 +8,7 @@ namespace PerformerDatabaseImplements.Models
     public class Purchase
     {
         public int Id { get; set; }
+        public int ClientId { get; set; }
         [Required]
         public DateTime Date { get; set; }
         [Required]

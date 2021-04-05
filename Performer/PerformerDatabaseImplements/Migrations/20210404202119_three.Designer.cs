@@ -11,9 +11,10 @@ using System;
 namespace PerformerDatabaseImplements.Migrations
 {
     [DbContext(typeof(PerformerDatabaseContext))]
-    partial class PerformerDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210404202119_three")]
+    partial class three
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

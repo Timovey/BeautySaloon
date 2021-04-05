@@ -31,7 +31,7 @@ namespace PerformerBusinessLogic.BusinessLogic
             var element = _clientStorage.GetElement(new ClientBindingModel
             {
                 ClientName = model.ClientName,
-                ClientSurame = model.ClientSurame
+                ClientSurname = model.ClientSurname
             });
             if (element != null && element.Id != model.Id)
             {

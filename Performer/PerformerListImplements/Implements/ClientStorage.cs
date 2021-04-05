@@ -33,7 +33,7 @@ namespace PerformerListImplements.Implements
             List<ClientViewModel> result = new List<ClientViewModel>();
             foreach (var client in source.Clients)
             {
-                if (client.ClientName.Contains(model.ClientName) && client.ClientSurame.Contains(model.ClientSurame))
+                if (client.Login.Contains(model.Login))
                 {
                     result.Add(CreateModel(client));
                 }
@@ -49,7 +49,7 @@ namespace PerformerListImplements.Implements
             foreach (var client in source.Clients)
             {
                 if (client.Id == model.Id || (client.ClientName.Contains(model.ClientName) 
-                    && client.ClientSurame.Contains(model.ClientSurame)))
+                    && client.ClientSurame.Contains(model.ClientSurname)))
                 {
                     return CreateModel(client);
                 }
@@ -58,7 +58,10 @@ namespace PerformerListImplements.Implements
         }
         public void Insert(ClientBindingModel model)
         {
-            Client tempClient = new Client { Id = 1 };
+            Client tempClient = new Client { Id = 1,
+            ClientProcedures = new Dictionary<int, int>(),
+            ClientPurchases = new Dictionary<int, int>(),
+            ClientVisits = new Dictionary<int, int>()};
             foreach (var client in source.Clients)
             {
                 if (client.Id >= tempClient.Id)
@@ -66,6 +69,9 @@ namespace PerformerListImplements.Implements
                     tempClient.Id = client.Id + 1;
                 }
             }
+            model.ClientPurchases = new Dictionary<int, DateTime>();
+            model.ClientProcedures = new Dictionary<int, string>();
+            model.ClientVisits = new Dictionary<int, DateTime>();
             source.Clients.Add(CreateModel(model, tempClient));
         }
         public void Update(ClientBindingModel model)
@@ -99,7 +105,7 @@ namespace PerformerListImplements.Implements
         private Client CreateModel(ClientBindingModel model, Client client)
         {
             client.ClientName = model.ClientName;
-            client.ClientSurame = model.ClientSurame;
+            client.ClientSurame = model.ClientSurname;
             client.Mail = model.Mail;
             client.Tel = model.Tel;
             client.Login = model.Login;

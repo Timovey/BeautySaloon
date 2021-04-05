@@ -10,6 +10,7 @@ namespace PerformerBusinessLogic.BindingModels
     public class ProcedureBindingModel
     {
         public int? Id { get; set; }
+        public int? ClientId { get; set; }
 
         public string ProcedureName { get; set; }
 

@@ -11,9 +11,10 @@ using System;
 namespace PerformerDatabaseImplements.Migrations
 {
     [DbContext(typeof(PerformerDatabaseContext))]
-    partial class PerformerDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210404160858_two")]
+    partial class two
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,7 +85,7 @@ namespace PerformerDatabaseImplements.Migrations
 
                     b.HasIndex("PurchaseId");
 
-                    b.ToTable("ProcedurePurchases");
+                    b.ToTable("ProcedurePurchase");
                 });
 
             modelBuilder.Entity("PerformerDatabaseImplements.Models.ProcedureVisit", b =>
@@ -102,7 +103,7 @@ namespace PerformerDatabaseImplements.Migrations
 
                     b.HasIndex("VisitId");
 
-                    b.ToTable("ProcedureVisits");
+                    b.ToTable("ProcedureVisit");
                 });
 
             modelBuilder.Entity("PerformerDatabaseImplements.Models.Purchase", b =>

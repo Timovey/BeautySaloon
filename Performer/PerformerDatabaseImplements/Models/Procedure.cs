@@ -8,7 +8,7 @@ namespace PerformerDatabaseImplements.Models
     public class Procedure
     {
         public int Id { get; set; }
-
+        public int ClientId { get; set; }
         [Required]
         public string ProcedureName { get; set; }
 

@@ -8,9 +8,9 @@ using Unity;
 namespace BeautySaloon
 {
     /// <summary>
-    /// Логика взаимодействия для WindowDistributionCosmetic.xaml
+    /// Логика взаимодействия для WindowSelectionCosmetics.xaml
     /// </summary>
-    public partial class WindowDistributionCosmetic : Window
+    public partial class WindowSelectionCosmetics : Window
     {
         [Dependency]
         public IUnityContainer Container { get; set; }
@@ -27,13 +27,13 @@ namespace BeautySaloon
 
         private readonly CosmeticLogic logic;
 
-        public WindowDistributionCosmetic(CosmeticLogic logic)
+        public WindowSelectionCosmetics(CosmeticLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
         }
 
-        private void WindowDistributionCosmetic_Loaded(object sender, RoutedEventArgs e)
+        private void WindowSelectionCosmetics_Loaded(object sender, RoutedEventArgs e)
         {
             var list = logic.Read(new CosmeticBindingModel { EmployeeId = employeeId });
             if (list != null)

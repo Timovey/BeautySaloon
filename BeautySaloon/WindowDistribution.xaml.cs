@@ -92,7 +92,7 @@ namespace BeautySaloon
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            var window = Container.Resolve<WindowDistributionCosmetic>();
+            var window = Container.Resolve<WindowSelectionCosmetics>();
             window.EmployeeId = (int)employeeId;
             if (window.ShowDialog().Value)
             {
@@ -112,7 +112,7 @@ namespace BeautySaloon
         {
             if (dataGrid.SelectedCells.Count != 0)
             {
-                var window = Container.Resolve<WindowDistributionCosmetic>();
+                var window = Container.Resolve<WindowSelectionCosmetics>();
                 window.Id = Convert.ToInt32(((DataGridDistributionItemViewModel)dataGrid.SelectedCells[0].Item).Id);
                 window.Count = Convert.ToInt32(((DataGridDistributionItemViewModel)dataGrid.SelectedCells[0].Item).Count);
                 window.EmployeeId = (int)employeeId;

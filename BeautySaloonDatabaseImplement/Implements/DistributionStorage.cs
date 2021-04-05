@@ -43,7 +43,8 @@ namespace BeautySaloonDatabaseImplement.Implements
                 .Include(rec => rec.Employee)
                 .Include(rec => rec.DistributionCosmetics)
                 .ThenInclude(rec => rec.Cosmetic)
-                .Where(rec => rec.EmployeeId == model.EmployeeId || rec.IssueDate == model.IssueDate)
+                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.EmployeeId == model.EmployeeId || rec.IssueDate == model.IssueDate) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue && (rec.EmployeeId == model.EmployeeId || rec.IssueDate.Date >= model.DateFrom.Value.Date && rec.IssueDate.Date <= model.DateTo.Value.Date)))
                 .ToList()
                 .Select(rec => new DistributionViewModel
                 {

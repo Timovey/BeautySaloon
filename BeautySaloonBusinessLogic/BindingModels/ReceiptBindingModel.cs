@@ -14,5 +14,9 @@ namespace BeautySaloonBusinessLogic.BindingModels
         public DateTime PurchaseDate { get; set; }
 
         public Dictionary<int, (string, int)> ReceiptCosmetics { get; set; }
+
+        public DateTime? DateFrom { get; set; }
+
+        public DateTime? DateTo { get; set; }
     }
 }

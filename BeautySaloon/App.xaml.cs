@@ -34,6 +34,7 @@ namespace BeautySaloon
             currentContainer.RegisterType<DistributionLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<EmployeeLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ReceiptLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ReportLogic>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }

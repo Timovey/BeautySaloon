@@ -25,10 +25,6 @@ namespace BeautySaloonBusinessLogic.BusinessLogics
             {
                 return new List<EmployeeViewModel> { _employeeStorage.GetElement(model) };
             }
-            if (!String.IsNullOrEmpty(model.Login))
-            {
-                return new List<EmployeeViewModel> { _employeeStorage.GetElement(model) };
-            }
             return _employeeStorage.GetFilteredList(model);
         }
 

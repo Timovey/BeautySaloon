@@ -47,7 +47,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Дата выдачи:" />
-        <TextBox x:Name="TextBoxIssueDate" Grid.Row="0" Grid.Column="1" Loaded="WindowDistribution_Loaded" />
+        <TextBox x:Name="TextBoxIssueDate" Grid.Row="0" Grid.Column="1" Loaded="WindowDistribution_Loaded" IsEnabled="False" />
         <GroupBox  Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="5">
             <GroupBox.Header>
                 <Label Content="Косметика" Foreground="#003466" FontSize="15px"></Label>

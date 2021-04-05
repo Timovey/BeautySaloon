@@ -23,7 +23,6 @@ namespace BeautySaloon
         {
             InitializeComponent();
             this.logic = logic;
-
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -59,12 +58,13 @@ namespace BeautySaloon
 
         private void PurchaseMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+              
         }
 
         private void ReportMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            var window = Container.Resolve<WindowReportCosmetics>();
+            window.ShowDialog();
         }
     }
 }

@@ -38,7 +38,7 @@ namespace BeautySaloonDatabaseImplement.Implements
             using (var context = new BeautySaloonDatabase())
             {
                 return context.Employees
-                .Where(rec => rec.Login.Contains(model.Login))
+                .Where(rec => rec.Login == model.Login && rec.Password == model.Password)
                 .Select(rec => new EmployeeViewModel
                 {
                     Id = rec.Id,
@@ -62,7 +62,7 @@ namespace BeautySaloonDatabaseImplement.Implements
             using (var context = new BeautySaloonDatabase())
             {
                 var employee = context.Employees
-                .FirstOrDefault(rec => rec.Login == model.Login && rec.Password == model.Password || rec.Id == model.Id);
+                .FirstOrDefault(rec => rec.Login == model.Login || rec.Id == model.Id);
                 return employee != null ?
                 new EmployeeViewModel
                 {

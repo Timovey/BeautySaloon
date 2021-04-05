@@ -23,17 +23,20 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="5" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" ColumnWidth="*" />
-        <Button x:Name="buttonAdd" Content="Создать" Grid.Row="0" Grid.Column="4" Click="buttonAdd_Click"/>
-        <Button x:Name="buttonUpd" Content="Изменить" Grid.Row="1" Grid.Column="4" Click="buttonUpd_Click"/>
-        <Button x:Name="buttonDel" Content="Удалить" Grid.Row="2" Grid.Column="4" Click="buttonDel_Click"/>
-        <Button x:Name="buttonRef" Content="Обновить" Grid.Row="3" Grid.Column="4" Click="buttonRef_Click"/>
+        <DataGrid x:Name="dataGrid" Grid.Column="0" Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="4" Margin="5" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" ColumnWidth="*" />
+        <Button x:Name="buttonAdd" Content="Создать" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" Click="buttonAdd_Click"/>
+        <Button x:Name="buttonUpd" Content="Изменить" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Click="buttonUpd_Click"/>
+        <Button x:Name="buttonDel" Content="Удалить" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Click="buttonDel_Click"/>
+        <Button x:Name="buttonRef" Content="Обновить" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Click="buttonRef_Click"/>
+        <Button x:Name="buttonLinking" Content="Привязать к посещению" Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="4" Click="buttonCancel_Click" MinHeight="50" MinWidth="200" />
     </Grid>
 </Window>

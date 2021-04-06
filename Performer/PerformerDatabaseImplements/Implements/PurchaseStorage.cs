@@ -24,9 +24,7 @@ namespace PerformerDatabaseImplements.Implements
                    Id = rec.Id,
                    ClientId = rec.ClientId,
                    Date = rec.Date,
-                   PurchaseProcedures = rec.ProcedurePurchase
-                .ToDictionary(recPC => recPC.ProcedureId, recPC =>
-               (recPC.Procedure?.ProcedureName, recPC.Procedure.Price))
+                   PurchaseProcedures = rec.ProcedurePurchase.ToDictionary(recPP => recPP.ProcedureId, recPP => (recPP.Procedure?.ProcedureName, recPP.Procedure.Price))
                })
                .ToList();
 
@@ -44,16 +42,15 @@ namespace PerformerDatabaseImplements.Implements
                     .Include(rec => rec.Client)
                              .Include(rec => rec.ProcedurePurchase)
                .ThenInclude(rec => rec.Procedure)
-               .Where(rec => rec.Date == model.Date)
-               .ToList()
+               .Where(rec => (rec.ClientId == model.ClientId || rec.Date == model.Date))
+                .ToList()
                .Select(rec => new PurchaseViewModel
                {
                    Id = rec.Id,
                    ClientId = rec.ClientId,
                    Date = rec.Date,
-                   PurchaseProcedures = rec.ProcedurePurchase
-                .ToDictionary(recPC => recPC.ProcedureId, recPC =>
-               (recPC.Procedure?.ProcedureName, recPC.Procedure.Price))
+                   PurchaseProcedures = rec.ProcedurePurchase.ToDictionary(recPP => recPP.ProcedureId, recPP => (recPP.Procedure?.ProcedureName, recPP.Procedure.Price))
+
                }).ToList();
             }
         }
@@ -77,9 +74,7 @@ namespace PerformerDatabaseImplements.Implements
                      Id = visit.Id,
                      ClientId = visit.ClientId,
                      Date = visit.Date,
-                     PurchaseProcedures = visit.ProcedurePurchase
-                .ToDictionary(recPC => recPC.ProcedureId, recPC =>
-               (recPC.Procedure?.ProcedureName, recPC.Procedure.Price))
+                     PurchaseProcedures = visit.ProcedurePurchase.ToDictionary(recPP => recPP.ProcedureId, recPP => (recPP.Procedure?.ProcedureName, recPP.Procedure.Price))
                  } :
                null;
             }
@@ -153,8 +148,13 @@ namespace PerformerDatabaseImplements.Implements
        PerformerDatabaseContext context)
         {
             purchase.Date = model.Date;
-            purchase.ClientId = model.ClientId.Value;
+            purchase.ClientId = (int)model.ClientId;
 
+            if(purchase.Id == 0)
+            {
+                context.Purchases.Add(purchase);
+                context.SaveChanges();
+            }
             if (model.Id.HasValue)
             {
                 var PurchaseComponents = context.ProcedurePurchases.Where(rec =>

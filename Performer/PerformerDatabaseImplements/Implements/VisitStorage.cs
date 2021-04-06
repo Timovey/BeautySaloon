@@ -25,9 +25,7 @@ namespace PerformerDatabaseImplements.Implements
                    Id = rec.Id,
                    ClientId = rec.ClientId,
                    Date = rec.Date,
-                   VisitProcedures = rec.ProcedureVisit
-                .ToDictionary(recPC => recPC.ProcedureId, recPC =>
-               (recPC.Procedure?.ProcedureName))
+                   VisitProcedures = rec.ProcedureVisit.ToDictionary(recPP => recPP.ProcedureId, recPP => (recPP.Procedure?.ProcedureName))
                })
                .ToList();
 
@@ -45,16 +43,14 @@ namespace PerformerDatabaseImplements.Implements
                     .Include(rec => rec.Client)
                              .Include(rec => rec.ProcedureVisit)
                .ThenInclude(rec => rec.Procedure)
-               .Where(rec => rec.Date == model.Date)
+              .Where(rec => (rec.ClientId == model.ClientId || rec.Date == model.Date))
                .ToList()
                .Select(rec => new VisitViewModel
                {
                    Id = rec.Id,
                    ClientId = rec.ClientId,
                    Date = rec.Date,
-                   VisitProcedures = rec.ProcedureVisit
-                .ToDictionary(recPC => recPC.ProcedureId, recPC =>
-               (recPC.Procedure?.ProcedureName))
+                   VisitProcedures = rec.ProcedureVisit.ToDictionary(recPP => recPP.ProcedureId, recPP => (recPP.Procedure?.ProcedureName))
                }).ToList();
             }
         }
@@ -78,9 +74,7 @@ namespace PerformerDatabaseImplements.Implements
                      Id = visit.Id,
                      ClientId = visit.ClientId,
                      Date = visit.Date,
-                     VisitProcedures = visit.ProcedureVisit
-                .ToDictionary(recPC => recPC.ProcedureId, recPC =>
-               (recPC.Procedure?.ProcedureName))
+                     VisitProcedures = visit.ProcedureVisit.ToDictionary(recPP => recPP.ProcedureId, recPP => (recPP.Procedure?.ProcedureName))
                  } :
                null;
             }
@@ -154,7 +148,13 @@ namespace PerformerDatabaseImplements.Implements
        PerformerDatabaseContext context)
         {
             visit.Date = model.Date;
-            visit.ClientId = model.ClientId.Value;
+            visit.ClientId = (int)model.ClientId;
+
+            if (visit.Id == 0)
+            {
+                context.Visits.Add(visit);
+                context.SaveChanges();
+            }
 
             if (model.Id.HasValue)
             {

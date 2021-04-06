@@ -24,6 +24,7 @@ namespace PerformerDatabaseImplements.Implements
                    Id = rec.Id,
                    ClientId = rec.ClientId,
                    Date = rec.Date,
+                   Price = rec.Price,
                    PurchaseProcedures = rec.ProcedurePurchase.ToDictionary(recPP => recPP.ProcedureId, recPP => (recPP.Procedure?.ProcedureName, recPP.Procedure.Price))
                })
                .ToList();
@@ -49,6 +50,7 @@ namespace PerformerDatabaseImplements.Implements
                    Id = rec.Id,
                    ClientId = rec.ClientId,
                    Date = rec.Date,
+                   Price = rec.Price,
                    PurchaseProcedures = rec.ProcedurePurchase.ToDictionary(recPP => recPP.ProcedureId, recPP => (recPP.Procedure?.ProcedureName, recPP.Procedure.Price))
 
                }).ToList();
@@ -74,6 +76,7 @@ namespace PerformerDatabaseImplements.Implements
                      Id = visit.Id,
                      ClientId = visit.ClientId,
                      Date = visit.Date,
+                     Price = visit.Price,
                      PurchaseProcedures = visit.ProcedurePurchase.ToDictionary(recPP => recPP.ProcedureId, recPP => (recPP.Procedure?.ProcedureName, recPP.Procedure.Price))
                  } :
                null;
@@ -149,6 +152,7 @@ namespace PerformerDatabaseImplements.Implements
         {
             purchase.Date = model.Date;
             purchase.ClientId = (int)model.ClientId;
+            purchase.Price = model.Price;
 
             if(purchase.Id == 0)
             {

@@ -74,7 +74,7 @@ namespace PerformerDatabaseImplements.Implements
                      Id = visit.Id,
                      ClientId = visit.ClientId,
                      Date = visit.Date,
-                     VisitProcedures = visit.ProcedureVisit.ToDictionary(recPP => recPP.ProcedureId, recPP => (recPP.Procedure?.ProcedureName))
+                     VisitProcedures = visit.ProcedureVisit.ToDictionary(recVP => recVP.ProcedureId, recVP => (recVP.Procedure?.ProcedureName))
                  } :
                null;
             }
